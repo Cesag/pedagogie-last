@@ -11,7 +11,7 @@ from openerp.tools.translate import _
 
 STATES_REQ = [('draft','Brouillon'),('cancel','Annulée'),('progress','Directeur / Chef de parcours'),('done','Validée'),('reject','Rejetée')]
 
-STATES_TEACHER = [('done','Validée'),('reject','Rejetée')]
+STATES_TEACHER = [('instance','En Instance'),('done','Validée'),('reject','Rejetée')]
 
 STATES_ALLOCATION = [('draft','Brouillon'),('cancel','Annulée'),('progress','Chef de parcours'),('progress_formation','Directeur formation'),('done','Validée'),('reject','Rejetée')]
 
@@ -285,13 +285,13 @@ class ClassroomModule(models.Model):
     teacher_id = fields.Many2one(comodel_name='sm.faculty', string='Professeur', copy=True)
     date_start = fields.Date(string=u'Date de début', copy=True)
     date_end = fields.Date(string=u'Date de fin', copy=True)
-    year_id = fields.Char( 'Année Académique')
-    classroom_id = fields.Char( 'Classe')
+    year_id = fields.Many2one( 'Année académique',compute="_compute_year")
+    classroom_id = fields.Many2one( 'Classe',compute="_compute_class")
     state = fields.Selection(STATES_TEACHER, string=u'Etat',
-                             default='done', track_visibility='onchange')
+                             default='instance', track_visibility='onchange')
     semestre_id = fields.Many2one(comodel_name='sm.semester', string='Semestre', copy=True)
                              
-    @api.onchange("year_id")
+    
     def _compute_year(self):
         for obj in self:
            # career_university_names = ""
@@ -299,13 +299,15 @@ class ClassroomModule(models.Model):
                 year_id = obj.classroom_allocation_id.year_id.name
                 obj.year_id = year_id
                 
-    @api.onchange("year_id")
+   
     def _compute_class(self):
         for obj in self:
            # career_university_names = ""
             if obj.classroom_allocation_id.classroom_id:
                 classroom_id = obj.classroom_allocation_id.classroom_id.name
                 obj.classroom_id = classroom_id
+    
+    
     
    
 
