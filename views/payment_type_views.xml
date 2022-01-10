@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="cesag_payment_type_form" model="ir.ui.view">
+            <field name="name">Autre paiement</field>
+            <field name="model">cesag.other.payment</field>
+            <field name="arch" type="xml">
+                <form string="Paiement">
+                    <group col="4" colspan="8">
+                        <field name="type_payment_id"/>
+                        <field name="proforma_invoice"/>
+                        <field name="payment_date"/>
+                        <field name="payment_amount"/>
+                        <field name="payment_bank_id"/>
+                        <field name="payment_note"/>
+                    </group>
+
+                    <group string="Reçu Paiement et Quitus">
+                        <field name="attachment_ids" widget="many2many_binary" nolabel="1" class="oe_inline" colspan="4"/>
+                    </group>
+                    <footer>
+                         <button name="action_confirm_payment" string="Payé" type="object" class="oe_highlight"/>
+                         ou
+                         <button string="Annuler" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_payment_op_single">
+            <field name="name">Autre Paiement</field>
+            <field name="res_model">cesag.other.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cesag_payment_type_form" />
+            <field name="target">new</field>
+        </record>
+
+
+	</data>
+</openerp>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<openerp>
+
+<data>
+<record id="exam_form" model="ir.ui.view">
+        <field name="name">extended.exam.time.table.form</field>
+        <field name="model">time.table</field>
+        <field name="inherit_id" ref="ext_school_mgmt.view_time_table_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group/field[@name='year_id']" position="after">
+                <field name="timetable_type" placeholder= "Select Time Table Type" readonly="1"/>
+            </xpath>
+            <field name="timetable_ids" position="attributes">
+                <attribute name="attrs">{'invisible': [('timetable_type','!=','regular')]}</attribute>
+            </field>
+            <field name="timetable_ids" position="after">
+                <field name="exam_timetable_line_ids" nolabel="1" attrs="{'invisible':[('timetable_type','!=','exam')]}">
+                    <tree name="exam_timetable" string="Emploi du temps Examen" editable="bottom">
+                        <field name="exm_date"/>
+                        <field name="day_of_week"/>
+                        <field name="subject_ids" options='{"no_open": True, "no_create": True}'/>
+                        <field name="start_time" />
+                        <field name="end_time"  />
+                        <field name="teacher_id" string="Surveillant" options='{"no_open": True, "no_create": True}'/>
+                        <field name="class_room_id" options='{"no_open": True, "no_create": True}'/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+    
+     <record id="timetable_exam_action" model="ir.actions.act_window">
+        <field name="name">Emploi Du temps</field>
+        <field name="res_model">time.table</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('timetable_type','=','exam')]</field>
+        <field name="context">{'default_timetable_type':'exam'}</field>
+    </record>
+    </data>
+</openerp>

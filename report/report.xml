@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!--        <report string="Contrat"-->
+<!--            id="action_report_contract"-->
+<!--            model="report.contract"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="ext_school_mgmt.report_contract"-->
+<!--            file="ext_school_mgmt.report_contract"-->
+<!--        />-->
+         <report id="action_report_time_table"
+                string="Emploi du temps"
+                model="time.table"
+                report_type = "qweb-pdf"
+                file="ext_school_mgmt.timetable"
+                name="ext_school_mgmt.timetable" /> 
+
+        <report
+            string="CONTRAT"
+            id="action_report_faculty_contract"
+            model="sm.faculty"
+            report_type="qweb-pdf"
+            name="ext_school_mgmt.report_faculty_contract"
+            file="ext_school_mgmt.report_faculty_contract"
+        />
+          
+           <report
+            string="Absence"
+            id="action_report_absence_extend"
+            model="daily.attendance"
+            report_type="qweb-pdf"
+            name="ext_school_mgmt.report_absence_extend"
+            file="ext_school_mgmt.report_absence_extend"
+        />
+        
+         <report
+            string="Note Contrôle"
+            id="action_report_contrôle"
+            model="note.controle"
+            report_type="qweb-pdf"
+            name="ext_school_mgmt.report_controle"
+            file="ext_school_mgmt.report_controle"
+        />
+         <report
+            string="Examen"
+            id="action_report_exam"
+            model="note.exam"
+            report_type="qweb-pdf"
+            name="ext_school_mgmt.report_exam"
+            file="ext_school_mgmt.report_exam"
+        />
+         <report
+            string="Bulletin de Notes"
+            id="action_report_bultin"
+            model="delibration.finale"
+            report_type="qweb-pdf"
+            name="ext_school_mgmt.report_bulletin_note"
+            file="ext_school_mgmt.report_bulletin_note"
+        />
+    </data>
+
+
+</openerp>

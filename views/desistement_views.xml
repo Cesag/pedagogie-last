@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="Mcesag_desistement_form_view" model="ir.ui.view">
+            <field name="name">cesag.desistement.form</field>
+            <field name="model">cesag.desistement</field>
+            <field name="arch" type="xml">
+                <form string="Desistement">
+                    <header>
+                            <button name="do_product_revision" string="Nouvelle copie" type="object" icon="gtk-go-forward"/>
+                            <button name="action_button_done" states="draft" string="Confirmer" type="object" confirm = "Etes vous sure de vouloir confirmer ?"/>
+<!--                        <button name="action_button_confirm" states="draft" string="Confirmer la demande de vaccation" type="object" groups="base.group_user" confirm = "Etes vous sure de vouloir confirmer ?"/>-->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel" statusbar_colors='{"reject":"red","waiting_date":"blue"}'/>
+
+                        </header>
+                        <label for="date"/>
+                        <h1>
+                            <field name="date"/>
+                        </h1>
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <label for="year_id"/>
+                        <h1>
+                            <field name="year_id"/>
+                        </h1>
+                        <label for="teacher_id"/>
+                        <h1>
+                            <field name="teacher_id"/>
+                        </h1>
+
+                        <label for="module_id"/>
+                        <h1>
+                            <field name="module_id"/>
+                        </h1>
+
+                        <group string="Données de l'enseignant" col="4" colspan="8">
+                            <field name="faculty_type"/>
+                            <field name="faculty_quality"/>
+                            <field name="faculty_grade_id"/>
+                            <field name="rate"/>
+                            <field name="diplome_id"/>
+                            <field name="sigle_diplome"/>
+                            <field name="number_hours"/>
+                        </group>
+                        <group col="4" colspan="8" string="Nouvel enseignant">
+                            <field name="renoncement_date"/>
+                            <field name="new_teacher_id"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Modules">
+                                <field name="module_ids">
+                                    <tree editable="true">
+                                        <field name="module_id"/>
+                                        <field name="tpe"/>
+                                        <field name="domain_id"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+<!--                                        <field name="state"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="cesag_desistement_tree_view" model="ir.ui.view">
+            <field name="name">cesag.desistement.tree</field>
+            <field name="model">cesag.desistement</field>
+            <field name="arch" type="xml">
+                <tree string="Desistement">
+                    <field name="name"/>
+                    <field name="year_id"/>
+                    <field name="teacher_id"/>
+                    <field name="renoncement_date"/>
+                    <field name="new_teacher_id"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="cesag_desistement_search_view" model="ir.ui.view">-->
+<!--            <field name="name">cesag.desistement.search</field>-->
+<!--            <field name="model">cesag.desistement</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Desistement">-->
+<!--                    <group expand="1" string="Group By">-->
+<!--                        <filter string="Example Field" name="example_field" domain="[]"-->
+<!--                                context="{'group_by':'example_field'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="cesag_desistement_act_window" model="ir.actions.act_window">
+            <field name="name">Desistement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cesag.desistement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquez ici pour ajouter un nouveau désistement.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="cesag_payment_type_form_view" model="ir.ui.view">
+            <field name="name">cesag.payment.type.form</field>
+            <field name="model">cesag.payment.type</field>
+            <field name="arch" type="xml">
+                <form string="Type de paiement">
+                    <sheet>
+                        <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Type"/>
+                            </h1>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cesag_payment_type_tree_view" model="ir.ui.view">
+            <field name="name">cesag.payment.type.tree</field>
+            <field name="model">cesag.payment.type</field>
+            <field name="arch" type="xml">
+                <tree string="Type de paiement">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cesag_payment_type_act_window" model="ir.actions.act_window">
+            <field name="name">Type de paiement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cesag.payment.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Créer un type de paiement.
+                </p>
+            </field>
+        </record>
+
+        <record id="cesag_student_inherit_form_view" model="ir.ui.view">
+            <field name="name">cesag.student_inherit.form</field>
+            <field name="model">sm.student</field>
+            <field name="inherit_id" ref="school_mgmt.sm_student_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_student_manual_confirm']" position="after">
+                   <button name="action_payment_op_single" string="Autres paiement" type="object"/>
+                  </xpath>
+            </field>
+        </record>
+
+
+
+<!--        <menuitem name="Type de paiement" id="cesag_payment_type_id" parent="your_root_menu" action="cesag_payment_type_act_window"/>-->
+
+
+<!--            <record id="sm_admission_proforma_invoice_details_view_form" model="ir.ui.view">-->
+<!--            <field name="name">sm_admission_proforma_invoice_details_view_tree</field>-->
+<!--            <field name="model">sm.admission.proforma.invoice.details</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Name" create="0">-->
+<!--                    <header>-->
+<!--                        <button name="action_accounting_ok" type="object" string="Valider" class="oe_highlight" confirm="Êtes-vous sûr de vouloir Valider ?"-->
+<!--                            attrs="{'invisible': [('accouting_validation','!=','draft')]}"/>-->
+<!--                        <button name="action_accounting_nok" type="object" string="Rejeter" class="oe_highlight" confirm="Êtes-vous sûr de vouloir Rejeter ?"-->
+<!--                            attrs="{'invisible': [('accouting_validation','!=','draft')]}"/>-->
+<!--                        <button name="action_accounting_done" type="object" string="Comptabiliser" class="oe_highlight" confirm="Êtes-vous sûr de vouloir Comptabiliser ?"-->
+<!--                            attrs="{'invisible': [('accouting_validation','!=','ok')]}"/>-->
+
+
+<!--                        <field name="accouting_validation" widget="statusbar" statusbar_visible="draft,ok,done" groups="base.group_user"/>-->
+<!--                    </header>-->
+<!--                    <sheet>-->
+<!--                        <group col="4" colspan="4">-->
+<!--                            <field name="number"/>-->
+<!--                            <field name="payment_date"/>-->
+<!--                            <field name="admission_id" attrs="{'invisible': [('payment_nature','!=','admission')]}"/>-->
+<!--                            <field name="enrollment_id" attrs="{'invisible': [('payment_nature','!=','enrollment')]}"/>-->
+<!--                            <newline/>-->
+<!--                            <field name="payment_nature" readonly="1"/>-->
+<!--                            <field name="name" colspan="4"/>-->
+<!--                            <field name="program_id" colspan="4"/>-->
+<!--                            <field name="proforma_invoice"/>-->
+<!--                            <newline/>-->
+<!--                            <field name="payment_note" colspan="4"/>-->
+<!--                        </group>-->
+<!--                        <group col="4" colspan="4">-->
+<!--                            <field name="reference" attrs="{'readonly': [('accouting_validation','=','done')]}"/>-->
+<!--                            <field name="payment_receipt_date" attrs="{'readonly': [('accouting_validation','=','done')]}"/>-->
+<!--                            <field name="payment_bank_id" widget="selection" attrs="{'readonly': [('accouting_validation','=','done')]}"/>-->
+<!--                            <field name="payment_amount" attrs="{'readonly': [('accouting_validation','=','done')]}"/>-->
+<!--                            <newline/>-->
+<!--&lt;!&ndash;                            <field name="accouting_validation" readonly="1"/>&ndash;&gt;-->
+<!--                            <field name="process_user_id" attrs="{'invisible': [('process_user_id','=',False)]}" options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" />-->
+<!--                            <field name="process_date" attrs="{'invisible': [('process_user_id','=',False)]}"/>-->
+<!--                            <newline/>-->
+<!--                            <field name="motif_refus" attrs="{'invisible': [('motif_refus','=',False)]}"/>-->
+<!--                        </group>-->
+<!--                        <group col="4" colspan="4" string="Facture">-->
+<!--                            <field name="invoice_id" attrs="{'invisible': [('invoice_id','=',False)]}"/>-->
+<!--                            <field name="invoice_amount_total" attrs="{'invisible': [('invoice_id','=',False)]}"/>-->
+<!--                        </group>-->
+<!--                        <group col="4" colspan="4">-->
+<!--                            <separator string="Reçu Paiement" colspan="4" style="font-size: 15px"/>-->
+<!--                            <field name="payment_attachment_ids" widget="many2many_binary" nolabel="1" class="oe_inline" colspan="4"/>-->
+<!--                        </group>-->
+<!--                        <group string="Dérogation" attrs="{'invisible': [('payment_derogation','=',False)]}">-->
+<!--                            <field name="payment_derogation" invisible="1"/>-->
+<!--                            <field name="payment_derogation_date"/>-->
+<!--                            <field name="payment_derogation_note"/>-->
+<!--                            <separator string="Dérogation Paiement" colspan="4" style="font-size: 15px"/>-->
+<!--                            <field name="payment_derogation_attachment_ids" widget="many2many_binary" nolabel="1" class="oe_inline" colspan="4"/>-->
+<!--                        </group>-->
+
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+
+
+    </data>
+</openerp>

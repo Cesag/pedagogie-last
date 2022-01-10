@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+  <data>
+
+<record id="view_daily_attendance_form_1" model="ir.ui.view">
+            <field name="name">daily.attendance.form</field>
+            <field name="model">daily.attendance</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Absence et cahier de texte">
+                    
+                    <sheet>
+                        <separator string="Abscence et cahier de texte" />
+                        <group colspan="4" col="4">
+                            <field name="date" />
+                            <field name="year_id" />
+                            <field name="program_id" options="{&quot;no_create&quot;: True}"  required="1"  />
+                            <field name="level_id" options="{&quot;no_create&quot;: True}"  domain="[('program_id','=',program_id)]" required="1" />
+                            <field name="semestre_id" options="{&quot;no_create&quot;: True}" domain="[('level_id','=',level_id)]" required="1"  />  
+                            <field name="classroom_id" options="{&quot;no_create&quot;: True}"  domain="[('level_id','=',level_id)]" required="1"  /> 
+                            <field name="module_id"  widget="selection"  required="1"  />
+                            <field name="teacher_id"  options="{&quot;no_create&quot;: True}"  required="1"  />
+                            <field name="starttime"    required="1"  />
+                            <field name="endtime"    required="1"  />
+                            <field name="decs"    required="1"  />
+                            
+                            
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Liste de presence">
+                                <field name="student_ids" nolabel="1" colspan="4">
+                                    <tree string="Information des etudiants" editable="bottom"  create="false" delete="false"  >
+                                        <field name="name" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="prenom" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="is_present"/>
+                                        <field name="is_absent"/>
+                                        <field name='present_absentcheck' invisible='1'/>
+                                        <field name="is_late"  />
+                                        <field name="late_time"  />
+                                    </tree>
+                                </field>
+                                <group col="2" >
+                                    <field name="total_student" />
+                                    <field name="total_presence" />
+                                    <field name="total_absent" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record> 
+       <record id="kanban_cahier_view" model="ir.ui.view">
+        <field name="name">Absence/cahier de texte KANBAN</field>
+        <field name="model">daily.attendance</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="classroom_id" >
+                <field name="level_id" />
+                <field name="date" />
+                 <field name="semestre_id" />
+                <field name="classroom_id"   />
+                 <field name="module_id"   />
+                <field name="teacher_id"   />
+                <field name="starttime"    required="1"  />
+                <field name="endtime"    required="1"  />
+                <field name="decs"    required="1"  />
+                 <field name="color" />
+                  
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}} oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <ul class="oe_dropdown_menu">
+                                    <li>
+                                        <a type="edit">Edit...</a>
+                                    </li>
+                                    <li>
+                                        <a type="delete">Delete</a>
+                                    </li>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                <table class="oe_kanban_table">
+                                    <tr>
+                                        <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                            <h4>
+                                                <a type="open">
+                                                    <field name="level_id" />
+                                                   
+                                                    <field name="semestre_id"   />
+                                                </a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                            <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                <table class="oe_kanban_table">
+                                    <tr width="300">
+                                        <td valign="top" align="left" style="padding-left:10px;">
+                                            <table>
+                                                <tr>
+                                                    <td>Date :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="date" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Module : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                             <field name="module_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Professeur: </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                           <field name="teacher_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                
+                                                 <tr>
+                                                    <td>Description: </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                           <field name="decs" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                
+                                               
+                                                
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                <div class="oe_kanban_left" style="margin-left:10px;">
+                                    <br />
+                                    <a role="button" string="Edit" class="btn btn-sm btn-default fa fa-pencil" type="edit" aria-label="edit" title="edit"/>
+                                    <a role="button" string="Change Color" icon="color-picker" type="color" name="color" />
+                                </div>
+                                <br class="oe_kanban_clear" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+        <!-- Search View Of Standard Student Information -->
+
+        <record id="vie_attendance_search" model="ir.ui.view">
+            <field name="name">daily.attendance.search</field>
+            <field name="model">daily.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Cahier de texte">
+                    <field name="classroom_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter name="class" string="Class" help="By Class" context="{'group_by':'classroom_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree View Of Daily Attendance Information -->
+
+        <record id="view_attendance_tree" model="ir.ui.view">
+            <field name="name">daily.attendance.tree</field>
+            <field name="model">daily.attendance</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Absence et cahier de texte">
+                    <field name="date" />
+                    <field name="module_id" />
+                    <field name="teacher_id" />
+                    <field name="classroom_id" />
+                    
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action Of Form & Tree Views Of Daily Attendance Information -->
+
+         <record id="absence_jour" model="ir.actions.act_window">
+            <field name="name">Absence et cahier de texte</field>
+             <field name="type">ir.actions.act_window</field>
+            <field name="res_model">daily.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+       
+
+   </data>
+</openerp>

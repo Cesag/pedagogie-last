@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+              <!-- Annonce -->
+        <record id="sm_alumni_opportunity_portal_view_tree" model="ir.ui.view">
+            <field name="name">sm_alumni_opportunity_view_tree</field>
+            <field name="model">sm.alumni.opportunity</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name">
+                    <field name="name"/>
+                    <field name="subject"/>
+                    <field name="date_opportunity"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_alumni_opportunity_portal_view_form" model="ir.ui.view">
+            <field name="name">sm_alumni_opportunity_view_form</field>
+            <field name="model">sm.alumni.opportunity</field>
+            <field name="priority" eval="2"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Name">
+                    <header>
+                        <button name="action_alumni_opportunity_submit" type="object" string="Soumettre" class="oe_highlight" states="draft"
+                            confirm="Êtes-vous sûr de vouloir Soumettre ?"/>
+                         <!-- <button name="reject" type="object" string="Rejeter" class="oe_highlight" states="submit"
+                            confirm="Êtes-vous sûr de vouloir rejeter ?"   />
+                        <button name="action_alumni_opportunity_done" type="object" string="Valider" class="oe_highlight" states="submit"  attrs="{'invisible': [('state','=',('rejected'))]}" />
+                        <button name="news_update" type="object" string="Envoyé" class="btn btn-sm btn-default fa fa-envelope"  states="done" colspan="2" attrs="{'invisible': [('state','=',('rejected'))]}" /> -->
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name"  readonly="1"/>
+                            </h1>
+                        </div>
+                         <group>
+                            <label for="subject"/>
+                            <div>
+                                <field name="subject"/>
+                            </div>
+                        </group>
+                         <group>
+                            <group>
+                                <field name="date_opportunity"/>
+                                <field name="announcement_type"  widget="many2many_tags"  />
+                            </group>  
+                             <group>                         
+                                <field name="date_end"/>
+                            </group> 
+                         <group col="4">
+                            <field name="opportunity_type" invisible="1"/>
+                        </group>
+                            </group>
+                        <notebook colspan="4">
+                                <page string="Ajouter Cibles" >
+                                     <field name="user_ids" 
+                                      />
+                                </page >
+                        </notebook >
+                       
+                        
+                        <group string="Description">
+                            <field name="description" />
+                            <field name="attachment_id" widget="many2many_binary" class="oe_inline"/>
+                        </group>
+                    </sheet>
+                    <div option="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_alumni_opportunity_portal_view_search" model="ir.ui.view">
+            <field name="name">sm_alumni_opportunity_view_search</field>
+            <field name="model">sm.alumni.opportunity</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Name">
+                    <field name="name"/>
+                    <field name="subject"/>
+                    <field name="date_opportunity"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+       
+
+        <record id="sm_alumni_annonce_portal_action" model="ir.actions.act_window">
+            <field name="name">Annonces</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.alumni.opportunity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sm_alumni_opportunity_portal_view_form"/>
+            <field name="domain">[('opportunity_type','=','ano')]</field>
+            <field name="context">{'default_opportunity_type': 'ano'}</field>
+            <field name="search_view_id" ref="sm_alumni_opportunity_portal_view_search"/>
+        </record>
+
+         <record id="sm_finance_portal_view_action_tree" model="ir.actions.act_window.view">
+                <field eval="1" name="sequence"/>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="sm_alumni_opportunity_portal_view_tree"/>
+                <field name="act_window_id" ref="sm_alumni_annonce_portal_action"/>
+        </record>
+
+        <record id="sm_finance_portal_view_action_form" model="ir.actions.act_window.view">
+                <field eval="2" name="sequence"/>
+                <field name="view_mode">form</field>
+                <field name="view_id" ref="sm_alumni_opportunity_portal_view_form"/>
+                <field name="act_window_id" ref="sm_alumni_annonce_portal_action"/>
+        </record>
+
+
+
+<!-- Financement -->
+
+        <record id="sm_alumni_financement_portal_view_tree" model="ir.ui.view">
+            <field name="name">sm_alumni_financement_view_tree</field>
+            <field name="model">sm.alumni.financement</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_alumni_financement_portal_view_form" model="ir.ui.view">
+            <field name="name">sm_alumni_financement_view_form</field>
+            <field name="model">sm.alumni.financement</field>
+             <field name="priority" eval="2"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Name">
+                    <header>
+                        <button name="action_alumni_financement_submit" type="object" string="Soumettre" class="oe_highlight" states="draft"
+                            confirm="Êtes-vous sûr de vouloir Soumettre ?"/>
+                        <!-- <button name="action_alumni_financement_done" type="object" string="Valider" class="oe_highlight" states="submit"/> -->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="amount"/>
+                            <field name="project_amount"/>
+                        </group>
+                        <group string="Justificatif de Paiement" groups="base.group_portal,school_mgmt.group_school_mgmt_admission_a,school_mgmt.group_school_mgmt_alumnis">
+                            <separator string="Justificatif de Paiement" colspan="4" style="font-size: 15px"/>
+                            <field name="financement_attachment_ids" widget="many2many_binary" nolabel="1" required="1"/>
+                        </group>
+                    </sheet>
+                    <div option="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_alumni_financement_portal_view_search" model="ir.ui.view">
+            <field name="name">sm_alumni_financement_view_search</field>
+            <field name="model">sm.alumni.financement</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Name">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="sm_alumni_financement_portal_action" model="ir.actions.act_window">
+            <field name="name">financements</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.alumni.financement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sm_alumni_financement_portal_view_form"/>
+            <!-- <field name="domain">[('state','=','draft')]</field> -->
+            <!-- <field name="context">{ 'tree_view_ref':'sm_alumni_financement_portal_view_tree'}</field> -->
+            <field name="search_view_id" ref="sm_alumni_financement_portal_view_search"/>
+        </record>
+
+         <record id="sm_finance_portal_view_action_tree" model="ir.actions.act_window.view">
+                <field eval="1" name="sequence"/>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="sm_alumni_financement_portal_view_tree"/>
+                <field name="act_window_id" ref="sm_alumni_financement_portal_action"/>
+        </record>
+
+        <record id="sm_finance_portal_view_action_form" model="ir.actions.act_window.view">
+                <field eval="2" name="sequence"/>
+                <field name="view_mode">form</field>
+                <field name="view_id" ref="sm_alumni_financement_portal_view_form"/>
+                <field name="act_window_id" ref="sm_alumni_financement_portal_action"/>
+        </record>
+
+
+<!-- Cotisaton -->
+        
+        <record id="sm_alumni_cotisation_view_tree" model="ir.ui.view">
+            <field name="name">sm_alumni_cotisation_view_tree</field>
+            <field name="model">sm.alumni.cotisation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name">
+                    <field name="name"/>
+                    <field name="year_id"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_alumni_cotisation_portal_view_form" model="ir.ui.view">
+            <field name="name">sm_alumni_cotisation_view_form</field>
+            <field name="model">sm.alumni.cotisation</field>
+             <field name="priority" eval="2"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Name">
+                    <header>
+                        <button name="action_alumni_cotisation_submit" type="object" string="Soumettre" class="oe_highlight" states="draft"
+                            confirm="Êtes-vous sûr de vouloir Soumettre ?"/>
+                        <!-- <button name="action_alumni_cotisation_done" type="object" string="Valider" class="oe_highlight" states="submit"/> -->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="year_id"/>
+                            <field name="amount"/>
+                        </group>
+                        <group string="Justificatif de Paiement" groups="base.group_portal,school_mgmt.group_school_mgmt_admission_a,school_mgmt.group_school_mgmt_alumnis">
+                            <separator string="Justificatif de Paiement" colspan="4" style="font-size: 15px"/>
+                            <field name="cotisation_attachment_ids" widget="many2many_binary" nolabel="1" required="1"/>
+                        </group>
+                    </sheet>
+                    <div option="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_alumni_cotisation_portal_view_search" model="ir.ui.view">
+            <field name="name">sm_alumni_cotisation_view_search</field>
+            <field name="model">sm.alumni.cotisation</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Name">
+                    <field name="name"/>
+                    <field name="year_id"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="sm_alumni_cotisation_portal_action" model="ir.actions.act_window">
+            <field name="name">Cotisations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.alumni.cotisation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="domain">[('state','=','draft')]</field> -->
+            <field name="search_view_id" ref="sm_alumni_cotisation_portal_view_search"/>
+        </record>
+
+         <!-- <record id="action_sm_admission_portal_view_form" model="ir.actions.server">
+            <field name="name">Nouveau Dossier</field>
+            <field name="condition">True</field>
+            <field name="model_id" ref="model_sm_admission"/>
+            <field name="code">action = self.open_sm_admission_portal_view_form(cr, uid, uid, context=context)</field>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+        </record>
+
+        <record id="sm_admission_portal_view_action" model="ir.actions.act_window">
+            <field name="name">Dossier en Cours</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.admission</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_admission': True}</field>
+            <field name="domain">[('partner_user_id','=',uid)]</field>
+            <field name="search_view_id" ref="sm_admission_view_search"/>
+        </record> -->
+
+            <record id="sm_cotisation_portal_view_action_tree" model="ir.actions.act_window.view">
+                <field eval="1" name="sequence"/>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="sm_alumni_cotisation_view_tree"/>
+                <field name="act_window_id" ref="sm_alumni_cotisation_portal_action"/>
+            </record>
+
+            <record id="sm_cotisation_portal_view_action_form" model="ir.actions.act_window.view">
+                <field eval="2" name="sequence"/>
+                <field name="view_mode">form</field>
+                <field name="view_id" ref="sm_alumni_cotisation_portal_view_form"/>
+                <field name="act_window_id" ref="sm_alumni_cotisation_portal_action"/>
+            </record>
+
+    </data>
+</openerp>

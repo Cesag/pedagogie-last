@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="0">
+
+               <!-- Plaqutte menu -->
+
+                <menuitem name="Plaquette" id="menu_sm_plaquette" parent="school_mgmt.menu_sm_subscription_root" 
+                    sequence="9"
+                     groups="school_mgmt.group_school_mgmt_admission_a" />
+                
+                <menuitem name="Plaquette" id="menu_sm_pla" parent="menu_sm_plaquette" 
+                    sequence="9"
+                    action="sm_plaquette_action"
+                     groups="school_mgmt.group_school_mgmt_admission_a"
+                     />
+
+                     <!-- Alumni -->
+                
+                 <menuitem name="Configuration" id="menu_sm_conf_alum" parent="school_mgmt.menu_sm_alumni_root" 
+                    sequence="2"
+                    groups="school_mgmt.group_school_mgmt_alumnis"
+                     />
+
+                <menuitem name="Année/Cotisation" id="menu_cotise_year" parent="menu_sm_conf_alum" 
+                    sequence="1"
+                    action="sm_alumni_year_action"
+                     />
+                     
+                     
+                 <menuitem name="Projet" id="menu_projet_year" parent="menu_sm_conf_alum" 
+                    sequence="2"
+                    action="sm_alumni_project_action"
+                     /> 
+                 
+                  <menuitem name="Type de cotisation" id="menu_cotype_year" parent="menu_sm_conf_alum" 
+                    sequence="3"
+                    action="sm_alumni_type_cot_action" 
+                     /> 
+
+
+                 
+
+                <!-- Menu Enseignement -->
+
+                 <menuitem name="Enseignements" id="menu_sm_enseignement_faculty" parent="school_mgmt.menu_sm_subscription_root"
+                sequence="4"
+                groups="school_mgmt.group_school_mgmt_admission_a" />
+
+                 <menuitem name="Enseignants" id="menu_sm_enseignent" parent="menu_sm_enseignement_faculty"
+                    sequence="2"
+                    action="school_mgmt.sm_faculty_action"
+                     groups="school_mgmt.group_school_mgmt_admission_a" 
+                     />
+
+                <menuitem name="Demande de vaccation" id="vaccation_ask_menu_id"
+                 parent="menu_sm_enseignement_faculty" action="askvaccation_act_window" sequence="1" 
+                  groups="school_mgmt.group_school_mgmt_admission_a"
+                  />
+
+                <menuitem name="Allocation des enseignants" id="allocation_menu_id"
+                 parent="menu_sm_enseignement_faculty" action="allocation_enseignant_act_window" sequence="3" 
+                  groups="school_mgmt.group_school_mgmt_admission_a"
+                  />
+                  
+                  <menuitem name="Validation Directeur Formation" id="df_menu_id"
+                 parent="menu_sm_enseignement_faculty" action="allocation_act_window" sequence="3" 
+                  groups="school_mgmt.group_school_mgmt_admission_a"
+                  />
+
+                <menuitem name="Génération des contrats" id="contract_generation_menu_id"
+                 parent="menu_sm_enseignement_faculty" action="generation_contract_act_window" sequence="4"
+                  groups="school_mgmt.group_school_mgmt_admission_a"/>
+
+                <menuitem name="Parametrage du quantum horaire" id="quantum_horaire_menu_id" 
+                parent="menu_sm_enseignement_faculty" action="params_quantum_act_window" sequence="5" 
+                 groups="school_mgmt.group_school_mgmt_admission_a" />
+
+                   <menuitem name="Consolidation" id="consolidation_menu_id"
+                          parent="menu_sm_enseignement_faculty" action="cesag_consolidation_act_window" sequence="4"/>
+                <menuitem name="Desistement" id="desistement_menu_id"
+                          parent="menu_sm_enseignement_faculty" action="cesag_desistement_act_window" sequence="5"/>
+                
+<!-- menu planification -->
+
+                <menuitem id="Planification_menu" name="Plalinification des Enseignements" 
+                parent="school_mgmt.menu_sm_subscription_root" 
+                 sequence="6" 
+                  groups="school_mgmt.group_school_mgmt_admission_a" />
+
+
+                <menuitem id="menu_timetable_1" name="Planifier Cours"
+                 parent="Planification_menu" action="action_timetable_regular"
+                 sequence="1"
+                  groups="school_mgmt.group_school_mgmt_admission_a" /> 
+
+                <menuitem id="timetable_exam_regular_menu" name="Planifier Examens" 
+                parent="Planification_menu" action="timetable_exam_action" 
+                sequence="2" 
+                 groups="school_mgmt.group_school_mgmt_admission_a" />
+
+
+      <!-- menu cahier detexte -->
+                <menuitem id="cahier_texte" name="Absence et Cahier de textes" 
+                parent="school_mgmt.menu_sm_subscription_root" 
+                 sequence="5"
+                  groups="school_mgmt.group_school_mgmt_admission_a" />
+
+                <menuitem id="menu_cahier_texte" name="Fiche de renseignement"
+                 parent="cahier_texte"
+                action="absence_jour"
+                 sequence="1" 
+                  groups="school_mgmt.group_school_mgmt_admission_a" />
+        
+
+         <!-- Menu Note et axame-->
+               <menuitem id="menu_notecontrole_exam" name="Gestion des Notes" 
+                parent="school_mgmt.menu_sm_subscription_root" 
+                 sequence="6"
+                  groups="school_mgmt.group_school_mgmt_admission_a" />
+
+                <menuitem id="menu_note_controle" name="Note de Contole"
+                 parent="menu_notecontrole_exam"
+                action="action_note_contole_view"
+                 sequence="1" 
+                  groups="school_mgmt.group_school_mgmt_admission_a" />
+
+                   <menuitem id="menu_note_exam" name="Note Examan"
+                 parent="menu_notecontrole_exam"
+                action="action_exam_note"
+                 sequence="2" 
+                  groups="school_mgmt.group_school_mgmt_admission_a" />
+                
+                <menuitem id="menu_delibearation_exam" name="Delibération final"
+                 parent="menu_notecontrole_exam"
+                action="action_deliberation_note"
+                 sequence="3" 
+                  groups="school_mgmt.group_school_mgmt_admission_a" />
+
+
+
+
+        <!-- Menu conf -->
+         <menuitem name="Configuration" id="menu_sm__config" parent="school_mgmt.menu_sm_subscription_root"
+                sequence="6" 
+                groups="school_mgmt.group_school_mgmt_admission_a"
+                />
+
+                
+                 <menuitem name="Domaine" id="menu_domaine__config" parent="menu_sm__config"
+                sequence="1"  action="sm_domaine_action"
+                 groups="school_mgmt.group_school_mgmt_admission_a"
+                />
+
+                 <menuitem name="Classe" id="menu_classe__config" parent="menu_sm__config"
+                sequence="2"  action="sm_class_action"
+                 groups="school_mgmt.group_school_mgmt_admission_a"
+                />
+
+                 <menuitem name="Semestre" id="menu_semestre_config" parent="menu_sm__config"
+                sequence="3"  action="sm_sem_action"
+                 groups="school_mgmt.group_school_mgmt_admission_a"
+                />
+
+                 <menuitem name="Niveau" id="menu_level_config" parent="menu_sm__config"
+                sequence="1"  action="sm_level_standars_action"
+                 groups="school_mgmt.group_school_mgmt_admission_a"
+                />
+
+
+
+ </data>
+</openerp>

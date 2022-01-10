@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<openerp>
+   <data>
+        <!-- Form View Of Time Table Information -->
+        <record id="view_time_table_form" model="ir.ui.view">
+            <field name="name">time.table.form</field>
+            <field name="model">time.table</field>
+            <field name="arch" type="xml">
+                <form string="Emploi du temps">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="year_id" widget="selection"/>                                            
+                            <field name="program_id"  options="{&quot;no_create&quot;: True}"  required="1" />
+                            <field name="level_id"  options="{&quot;no_create&quot;: True}" domain="[('program_id','=',program_id)]" required="1" />
+                            <field name="standard_ids" options="{&quot;no_create&quot;: True}" domain="[('level_id','=',level_id)]" required="1" />
+                            <field name="semestre_id"  options="{&quot;no_create&quot;: True}" domain="[('level_id','=',level_id)]" required="1" />
+                            <field name="class_room_id" options="{&quot;no_create&quot;: True}" invisible="1"/>
+                            <!-- <field name="user_ids" invisible="1"/> -->
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Emploi du temps
+                            ">
+                                <field name="timetable_ids" nolabel="1" colspan="4">
+                                    <tree string="TimeTable" editable="bottom">
+                                        <field name="week_day"/>
+                                      <field name="subject_ids" widget="selection" required="1" options='{"no_open": True, "no_create": True}'  />
+                                        <field name="start_time"  />
+                                        <field name="end_time"   />
+                                        <field name="teacher_id" options='{"no_open": True, "no_create": True}' required="1"   />
+                                        <field name="class_room_id" options='{"no_open": True, "no_create": True}'/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Tree View Of Time Table Information -->
+        <record id="view_time_table_tree" model="ir.ui.view">
+            <field name="name">time.table.tree</field>
+            <field name="model">time.table</field>
+            <field name="arch" type="xml">
+                <tree string="Emploi du temps">
+                   <field name="semestre_id"/>
+                   <field name="standard_ids"/>
+                    <field name="program_id"/>
+                    <field name="level_id"/>
+                    <field name="year_id"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Search View Time Table Information -->
+        <record id="timetable_search" model="ir.ui.view">
+            <field name="name">time.table.search</field>
+            <field name="model">time.table</field>
+            <field name="arch" type="xml">
+                <search string="emploi du temps">
+                    <field name="name"/>
+                    <field name="standard_ids"/>
+                    <field name="year_id"/>
+                    <newline/>
+                    <group expand="1" string="Group By">
+                        <filter name="class" string="Academic Class" help="By class"
+                                context="{'group_by':'standard_ids'}"/>
+                        <filter name="year" string="Year" help="By year" context="{'group_by':'year_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- Actions Of Form & Tree Views Of Time Table Information -->
+        <record id="action_timetable_regular" model="ir.actions.act_window">
+            <field name="name">Emploi du temps</field>
+            <field name="res_model">time.table</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('timetable_type','=','regular')]</field>
+            <field name="context">{'default_timetable_type':'regular'}</field>
+        </record>
+        <!-- Menu items of Timetable -->
+      </data>   
+</openerp>

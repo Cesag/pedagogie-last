@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+<!--        <menuitem name="Demande de vaccation" id="vaccation_ask_menu_id" parent="menu_sm_subscription_config" action="askvaccation_act_window"/>-->
+
+        <record id="kanban_alloaction_view" model="ir.ui.view">
+        <field name="name">ALLOCATION KANBAN</field>
+        <field name="model">cesag.allocation.enseignant</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="state" />
+                <field name="program_id" />
+                <field name="level_id" />
+                <field name="name"/>
+                <field name="year_id"/>
+                 <field name="classroom_id"/>
+                 <field name="module_ids" />
+                <field name="request_user_id"/>
+                <field name="color" />
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}} oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <ul class="oe_dropdown_menu">
+                                    <li>
+                                        <a type="edit">Edit...</a>
+                                    </li>
+                                    <li>
+                                        <a type="delete">Delete</a>
+                                    </li>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                <table class="oe_kanban_table">
+                                    <tr>
+                                        <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                            <h4>
+                                                <a type="open">
+                                                    <field name="program_id" />
+                                                    <field name="level_id" />
+                                                </a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                            <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                <table class="oe_kanban_table">
+                                    <tr width="300">
+                                        <td valign="top" align="left" style="padding-left:10px;">
+                                            <table>
+                                                <tr>
+                                                    <td>Responsable Parcours : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="request_user_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Reference :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="name" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Programme :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="program_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Niveau :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="level_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Année : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="year_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>classe : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="classroom_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Parcours : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="module_ids" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                <div class="oe_kanban_left" style="margin-left:10px;">
+                                    <br />
+                                    <a role="button" string="Edit" class="btn btn-sm btn-default fa fa-pencil" type="edit" aria-label="edit" title="edit"/>
+                                    <a role="button" string="Change Color" icon="color-picker" type="color" name="color" />
+                                </div>
+                                <br class="oe_kanban_clear" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+        <record id="cesag_allocation_form_view" model="ir.ui.view">
+            <field name="name">Allocation des enseignants</field>
+            <field name="model">cesag.allocation.enseignant</field>
+            <field name="arch" type="xml">
+                <form string="Allocation des enseignants">
+                    <header>
+                        <button name="action_button_confirm" states="draft" string="Confirmer la demande de vaccation" type="object" groups="base.group_user" confirm = "Etes vous sure de vouloir confirmer ?"/>
+
+                        <!-- <button name="copy_request" states="cancel,reject" string="Nouvelle copie" type="object" groups="request_module.group_request_user,request_module.group_request_manager"/>-->
+
+                        <button name="cancel" states="progress" string="Annuler" groups="base.group_user" confirm = "Etes vous sure de vouloir annuler ?"/>
+
+                        <!-- Validation Directeur / Chef de service-->
+                        <button name="action_button_valid_dir_chef_service" states="progress" string="Valider" class="oe_highlight" type="object"  confirm = "Etes vous sure de vouloir valider ?"/>
+
+                        <button name="action_button_valid_dir_formation" states="progress_formation" string="Valider" class="oe_highlight" type="object"  confirm = "Etes vous sure de vouloir valider ?"/>
+
+                        <button name="action_reject_two" type="object" states="progress_formation" string="Rejeter"/>
+
+                        <button name="action_create_teacher_history" states="progress_formation" string="Consolidation" class="oe_highlight" type="object"/>
+                        <button name="send_teacher_mail" states="progress_formation" string="Informer les enseignant par mail" class="oe_highlight" type="object" confirm = "Etes vous sure de vouloir envoyer les mails ?"/>
+<!--                        <button name="action_create_teacher_history" states="progress_formation" string="History" class="oe_highlight" type="object"/>-->
+
+                        <!--  <button name="action_reject_cg" type="object" states="progressCG" string="Rejeter" class="oe_highlight" groups="request_module.group_request_valid_two,request_module.group_request_manager"/> -->
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,progress,progress_formation,reject,done" statusbar_colors='{"reject":"red","waiting_date":"blue"}'/>
+                    </header>
+                    <sheet>
+                            <label for="date"/>
+                                <h1>
+                                    <field name="date"/>
+                                </h1>
+                            <label for="name"/>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+
+                        <group col="4" colspan="8" string="RESPONSABLE">
+                            <field name="request_user_id"/>
+                            <field name="request_department_id"/>
+                            <field name="manager_dept"/>
+<!--                            <field name="email"/>-->
+<!--                            <field name="email_to"/>-->
+                        </group>
+
+                            <label for="year_id" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="year_id" options="{&quot;no_create&quot;: True}"  />
+                                </h1>
+                        <group string="Programme - Niveau - Classe">
+                            <field name="program_id" options="{&quot;no_create&quot;: True}" />
+                            <field name="level_id" options="{&quot;no_create&quot;: True}" domain="[('program_id','=',program_id)]" />
+                            <field name="classroom_id" options="{&quot;no_create&quot;: True}" domain="[('level_id','=',level_id)]" />
+                        </group>
+                        <group col="4" colspan="8">
+                            <field name="class_capacity"/>
+                        </group>
+                        <notebook>
+                            <page string="Allocations des enseignants">
+                                <field name="module_ids">
+                                    <tree editable="True" colors="red:state=='reject';green:state=='done'">
+                                        <field name="semestre_id" options="{&quot;no_create&quot;: True}"  />
+                                        <field name="module_id" options="{&quot;no_create&quot;: True}" />
+                                        <field name="tpe"/>
+                                        <field name="domain_id"/>
+                                        <field name="teacher_id" options="{&quot;no_create&quot;: True}" />
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                 <field name="state" readonly="1" options="{&quot;no_create&quot;: True}" /> 
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Avenant">
+                                <field name="avenant_ids">
+                                    <tree editable="True">
+                                        <field name="motif"/>
+                                        <field name="date"/>
+                                        <field name="observation"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                    <div classroom="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="cesag_allocation_tree_view" model="ir.ui.view">
+            <field name="name">allocation.allocation.tree</field>
+            <field name="model">cesag.allocation.enseignant</field>
+            <field name="arch" type="xml">
+                <tree string="Allocation">
+                    <field name="classroom_id"/>
+                    <field name="year_id"/>
+                    <field name="level_id"/>
+                    <field name="program_id"/>
+                    <field name="class_capacity"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="allocation_search_view" model="ir.ui.view">-->
+<!--            <field name="name">allocation.allocation.search</field>-->
+<!--            <field name="model">allocation.allocation</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Allocation">-->
+<!--                    <group expand="1" string="Group By">-->
+<!--                        <filter string="Example Field" name="example_field" domain="[]"-->
+<!--                                context="{'group_by':'example_field'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="allocation_enseignant_act_window" model="ir.actions.act_window">
+            <field name="name">Allocation des enseignants</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cesag.allocation.enseignant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquez ici pour faire une allocation des enseignants
+                </p>
+            </field>
+        </record>
+        
+         <record id="cesag_all_allocation_tree_view" model="ir.ui.view">
+            <field name="name">classroom.allocation.module.tree</field>
+            <field name="model">classroom.allocation.module</field>
+            <field name="arch" type="xml">
+                <tree string="Allocation" editable="True" colors="red:state=='reject';green:state=='done'"  >
+                      <field name="year_id" />
+                      <field name="classroom_id"/>
+                      <field name="semestre_id" />
+                      <field name="module_id"/>
+                      <field name="tpe"/>
+                     <field name="teacher_id" />
+                     <field name="date_start"/>
+                     <field name="date_end"/>
+                    <field name="state" /> 
+                </tree>
+            </field>
+        </record>
+        
+        <record id="allocation_act_window" model="ir.actions.act_window">
+            <field name="name">Allocation des enseignants</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">classroom.allocation.module</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+
+        <record id="vaccation_ask_form_view" model="ir.ui.view">
+            <field name="name">Demande de vaccation</field>
+            <field name="model">vaccation.ask</field>
+            <field name="arch" type="xml">
+                <form string="Demande de vaccation">
+                    <header>
+                        <button name="action_button_confirm" states="draft" string="Confirmer la demande de vaccation" type="object" groups="base.group_user" confirm = "Etes vous sure de vouloir confirmer la demande ?"/>
+
+<!--                        <button name="copy_request" states="cancel,reject" string="Nouvelle copie" type="object" groups="request_module.group_request_user,request_module.group_request_manager"/>-->
+
+                        <button name="cancel" states="draft" string="Annuler" groups="base.group_user"/>
+
+                        <!-- Validation Directeur / Chef de service-->
+                        <button name="action_button_valid_dir_chef_service" states="progress" string="Valider" class="oe_highlight" type="object"  confirm = "Etes vous sure de vouloir valider ?"/>
+
+                        <button name="action_reject_two" type="object" states="progress" string="Rejeter"/>
+
+                        <button name="attr_create" states="done" string="Créer le vaccataire comme enseignant" class="oe_highlight" type="object"/>
+
+                       <!--  <button name="action_reject_cg" type="object" states="progressCG" string="Rejeter" class="oe_highlight" groups="request_module.group_request_valid_two,request_module.group_request_manager"/> -->
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,progress,reject,done" statusbar_colors='{"reject":"red","waiting_date":"blue"}'/>
+                    </header>
+                    <sheet>
+                            <label for="date"/>
+                                <h1>
+                                    <field name="date"/>
+                                </h1>
+                            <label for="name"/>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+
+<!--                            <label for="year_id"/>-->
+<!--                                <h1>-->
+<!--                                    <field name="year_id"/>-->
+<!--                                </h1>-->
+
+                        <group>
+                            <field name="civility"/>
+                        </group>
+                        <group col="4" colspan="8">
+                            <field name="firstname"/>
+                            <field name="lastname"/>
+                        </group>
+                        <group string="Informations du vaccataire" col="4" colspan="8">
+                            <field name="street"/>
+                            <field name="email"/>
+                            <field name="tel"/>
+                            <field name="birth_date"/>
+                            <field name="origin_country_id"/>
+                        </group>
+
+                        <group string="Diplome et Grade">
+                            <field name="faculty_type"/>
+                            <field name="faculty_grade_id"/>
+                            <field name="rate"/>
+                            <field name="diplome_id"/>
+                            <field name="sigle_diplome"/>
+                            <field name="test_click" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <div classroom="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="ask_vaccation_tree_view" model="ir.ui.view">
+            <field name="name">vaccation.ask.tree</field>
+            <field name="model">vaccation.ask</field>
+            <field name="arch" type="xml">
+                <tree string="Demande de vaccation" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state=='progress';red:state=='reject';green:state=='done'">
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name"/>
+                    <field name="faculty_type"/>
+                    <field name="firstname"/>
+                    <field name="email"/>
+                    <field name="faculty_grade_id"/>
+                    <field name="diplome_id"/>
+                    <field name="sigle_diplome"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="allocation_search_view" model="ir.ui.view">-->
+<!--            <field name="name">allocation.allocation.search</field>-->
+<!--            <field name="model">allocation.allocation</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Allocation">-->
+<!--                    <group expand="1" string="Group By">-->
+<!--                        <filter string="Example Field" name="example_field" domain="[]"-->
+<!--                                context="{'group_by':'example_field'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="askvaccation_act_window" model="ir.actions.act_window">
+            <field name="name">Demande de vaccation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vaccation.ask</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquez ici pour faire demande de vaccation
+                </p>
+            </field>
+        </record>
+
+            <record id="quantum_horaire_form_view" model="ir.ui.view">
+            <field name="name">Quantum Horaire</field>
+            <field name="model">quantum.horaire</field>
+            <field name="arch" type="xml">
+                <form string="Demande de vaccation">
+                    <sheet>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group colspan="8" col="4">
+                            <field name="year_id"/>
+                            <field name="quantum"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="allocation_tree_view" model="ir.ui.view">
+            <field name="name">quantum.horaire.tree</field>
+            <field name="model">quantum.horaire</field>
+            <field name="arch" type="xml">
+                <tree string="Quantum Horaire">
+                    <field name="quantum"/>
+                    <field name="year_id"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="allocation_search_view" model="ir.ui.view">-->
+<!--            <field name="name">allocation.allocation.search</field>-->
+<!--            <field name="model">allocation.allocation</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Allocation">-->
+<!--                    <group expand="1" string="Group By">-->
+<!--                        <filter string="Example Field" name="example_field" domain="[]"-->
+<!--                                context="{'group_by':'example_field'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="params_quantum_act_window" model="ir.actions.act_window">
+            <field name="name">Quantum horaire</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quantum.horaire</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquez ici pour ajouter un nouveau quantum horaire
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+    <template id="timetable">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <!-- <t t-call="web.external_layout"> -->
+                
+                <t t-if="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id"/>
+                </t>
+                <t t-if="not o or not 'company_id' in o">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+                    <div class="page">
+                          <div class="header" style="margin: 0px; padding: 0px;">
+            
+                              <table class="table table-condensed" style="padding: 10px;">
+                                  <tr style="padding: 10px; border: none">
+                                      <td style="text-align: center; border: none; font-weight: 900; font-size: 33px">
+                                          <img t-if="company" t-att-src="'data:image/png;base64,%s' % company.logo"
+                                              style="max-height: 2cm; max-width: 4cm;"/>
+                                      </td>
+                                      <td style="text-align: center; border: none; font-weight: 900; font-size: 33px">
+                                          Emploi du temps
+                                      </td>
+                                      <td style="text-align: right; vertical-align: top; border: none; font-weight: 900; font-size: 33px">
+                                          <span style="font-size: 10.5px; text-align: right; font-weight:bold;"> Page : <span class="page"/> / <span class="topage"/> </span>
+                                      </td>
+                                  </tr>
+                              </table>
+                              
+                              </div>
+                        <div class="oe_structure" /><br/><br/>
+                       
+                        <div class="row" align="center">
+                            <table width="100%" style="border: 2px solid black;">
+                                <tr>
+                                    <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                        <b>Anné Académique</b>
+                                    </td>
+                                    <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                        <b>Programme</b>
+                                    </td>
+                                     <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                        <b>Niveau</b>
+                                    </td>
+                                     <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                        <b>Classe</b>
+                                    </td>
+                                   
+                                     <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                        <b>Semestre</b>
+                                    </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                        <span t-field="o.year_id.name"></span>
+                                    </td>
+                                    <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                        <span t-field="o.standard_ids.program_id.name"></span>
+                                    </td>
+                                    <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                        <span t-field="o.standard_ids.level_id.name"></span>
+                                    </td>
+                                    <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                        <span t-field="o.standard_ids.classroom_id.name"></span>
+                                    </td>
+                                    <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                        <span t-field="o.semestre_id.name"></span>
+                                    </td>
+                                </tr>
+                                <tr style="border: 0px;">
+                                    <td colspan="4" style="border: 0px;">
+                                        <t t-if="o.timetable_type == 'regular'">
+                                            <br/>
+                                            <table width="100%" style="border: 0px;">
+                                                <tr style="border: 0px;">
+                                                    <td width="15%" align="center" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Heure</b>
+                                                    </td>
+                                                    <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Jour</b>
+                                                    </td>
+                                                    <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Matiére</b>
+                                                    </td>
+                                                    <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Prefesseur</b>
+                                                    </td>
+                                                    <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Salle</b>
+                                                    </td>
+                                                    
+                                                </tr>
+                                               <t t-foreach="o.timetable_ids" t-as="t">
+                                                    <tr>
+                                                        <td align="center" width="15%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-esc="'{0:,.2f}'.format(t['start_time'])"></span>
+                                                            <span> - </span>
+                                                            <span t-esc="'{0:,.2f}'.format(t['end_time'])"></span>
+                                                        </td>
+                                                        <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-esc="t.week_day"></span>
+                                                        </td>
+                                                        <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-esc="t.subject_ids.module_id.nom"></span>
+                                                        </td>
+                                                        <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-esc="t.teacher_id.name"></span>
+                                                        </td>
+                                                        <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-esc="t.class_room_id"></span>
+                                                        </td>
+                                                       
+                                                    </tr>
+                                                </t>
+                                            </table>
+                                        </t>
+                                        <t t-if="o.timetable_type == 'exam'">
+                                            <br/>
+                                            <table width="100%" style="border: 2px solid black;">
+                                                <tr>
+                                                    <td width="15%" align="center" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Date</b>
+                                                    </td>
+                                                    <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Jour</b>
+                                                    </td>
+                                                    <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 18px;border: 2px solid black;">
+                                                        <b>Modules</b>
+                                                    </td>
+                                                </tr>
+                                                <t t-foreach="o.exam_timetable_line_ids" t-as="t">
+                                                    <tr>
+                                                        <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-field="t.exm_date" t-options="{'format': 'dd - MM - yyyy'}"></span>
+                                                            <br />
+                                                            <span t-esc="'{0:,.2f}'.format(t['start_time'])"  t-options="{'format': 'dd - MM - yyyy'}" ></span>
+                                                            <span>-</span>
+                                                            <span t-esc="'{0:,.2f}'.format(t['end_time'])" t-options="{'format': 'dd - MM - yyyy'}"></span>
+                                                        </td>
+                                                        <td align="center" width="14.16%" style="margin-top: 16px; font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-field="t.day_of_week" style="text-align: center;vertical-align: middle;" />
+                                                        </td>
+                                                        <td align="center" width="14.16%" style="margin-top: 16px; font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
+                                                            <span t-field="t.subject_ids.name" style="text-align: center;vertical-align: middle;" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </table>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        <!-- </t> -->
+    </template>
+     </data>
+</openerp>

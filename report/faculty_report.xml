@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <template id="report_faculty_contract">
+            <t t-call="report.html_container">
+                <t t-set="company" t-value="res_company"/>
+                <t t-foreach="docs" t-as="o">
+                    <div class="header">
+<!--                    <div class="row" style="border-bottom:1px solid #0498CB">-->
+<!--                        <div class="col-xs-3">-->
+<!--                            <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 150px;"/>-->
+<!--                        </div>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <div class="col-xs-9">-->
+<!--                        <span style='mso-spacerun:yes'>   </span>-->
+<!--                            <b><u><span style='color:#339966'>CENTRE AFRICAIN D’ETUDES SUPERIEURES EN GESTION</span>-->
+<!--                        </u></b><b style='mso-bidi-font-weight:normal'></b>-->
+<!--                        </div>-->
+<!--                        <div class="col-xs-12">-->
+<!--                            <p  style='margin-bottom:0cm;text-align:justify;line-height:normal'><b style='mso-bidi-font-weight:normal'><span style='font-family:"Arial",sans-serif'>Direction de la Formation et des Innovations Pédagogiques (DFIP)</span></b></p>-->
+<!--                        </div>-->
+<!--                </div>-->
+
+<!--                    <p  style='margin-bottom:0cm;text-align:justify;line-height:normal;tab-stops:315.0pt'><span style='font-family:"Arial",sans-serif;mso-fareast-language:FR;mso-no-proof:yes'><v:shapetype id="_x0000_t75" coordsize="21600,21600" o:spt="75" >-->
+<!--                     <v:stroke joinstyle="miter"/>-->
+<!-- <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>-->
+<!-- <o:lock v:ext="edit" aspectratio="t"/>-->
+<!--</v:shapetype><v:shape id="Image_x0020_54" o:spid="_x0000_i1025" type="#_x0000_t75"-->
+<!-- alt="logo_CESAG" style='width:1in;height:54.75pt;visibility:visible;-->
+<!-- mso-wrap-style:square'>-->
+<!-- <v:imagedata src="Specimen%20contrat%20de%20vacation%20(1)_Corrigé_fichiers/image001.jpg"-->
+<!--  o:title="logo_CESAG"/>-->
+<!--</v:shape></span><span style='font-family:"Arial",sans-serif'><span-->
+<!--style='mso-spacerun:yes'>   </span><b><u><span style='color:#339966'>CENTRE-->
+<!--AFRICAIN D’ETUDES SUPERIEURES EN GESTION</span></u></b><b style='mso-bidi-font-weight:-->
+<!--normal'><u><o:p></o:p></u></b></span></p>-->
+
+<!--<p  style='margin-bottom:0cm;text-align:justify;line-height:-->
+<!--normal'><b style='mso-bidi-font-weight:normal'><span style='font-family:"Arial",sans-serif'>Direction-->
+<!--de la Formation et des Innovations Pédagogiques (DFIP)<o:p></o:p></span></b></p>-->
+
+
+
+                </div>
+                    <t t-call="report.external_layout">
+<!--                        <div class="page">-->
+<!--                            <p  style='margin-bottom:0cm;text-align:justify;line-height:normal'><b style='mso-bidi-font-weight:normal'><span style='font-family:"Arial",sans-serif'></span></b></p>-->
+<!--                            <p style="font-weight:bold">-->
+<!--                                Année académique-->
+<!--                            </p>-->
+<!--                            <br/>-->
+<!--                            <div class="container">-->
+<!--                            <p style="font-weight:bold">-->
+<!--                                CONTRAT DE COLLABORATION EXTERIEURE-->
+<!--                            </p>-->
+<!--                            <p>-->
+<!--                                ENTRE :	Le Centre Africain d’Etudes Supérieures en Gestion (CESAG), établissement public international sis au Boulevard du Général de Gaulle X Avenue Malick SY,-->
+<!--                                bénéficiant d’une immunité de juridiction et d’exécution, B.P. 3802 – DAKAR, Tél : 33 839 73 60, E-mail : courrier@cesag.edu.sn,-->
+<!--                                représenté par son Directeur Général, Professeur Balibié Serge Auguste BAYALA, dûment habilité à cet effet, d’une part,-->
+
+<!--                            </p>-->
+<!--                            <br/>-->
+<!--                            <p>-->
+<!--                                ET :-->
+<!--                            </p>-->
+
+<!--&lt;!&ndash;                            <p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                M. ou Mme <b t-field="o.name"/> <b t-field="o.lastname"/>, <b t-field="o.diplome_id"/>, <b t-field="o.sigle_diplome"/>, <b t-field="o.street"/>, Tel: <b t-field="o.tel"/>, appelé dans ce qui suit « l’enseignant associé »,&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                                                                                     d’autre part,&ndash;&gt;-->
+
+<!--&lt;!&ndash;                            </p>&ndash;&gt;-->
+
+<!--                            <p align="center">-->
+<!--                                Il a été convenu et arrêté ce qui suit :-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE PREMIER : <span style="font-weight:bold">OBJET DU CONTRAT</span>-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Le présent contrat de collaboration extérieure a pour objet une prestation d’enseignement des cours suivants sur les périodes spécifiées ci-dessous :-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 2 : <span style="font-weight:bold">PIECES CONTRACTUELLES</span>-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Sont considérés comme documents contractuels :-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                a)	le présent contrat, ainsi que ses avenants, le cas échéant ;-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                b)	le RIB sur lequel seront effectués les honoraires ;-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                b)	le syllabus tel que défini par le CESAG pour la matière à enseigner ;-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                c)	le CV et la fiche de renseignements (CV normalisé) de l’Enseignant associé, dûment signés par celui-ci ;-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                d) le statut et le règlement intérieur du CESAG ;-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                e)  le code éthique du CESAG ;-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                f)	tout autre document auquel les parties décident, d’un commun accord, de conférer le caractère de pièces contractuelles.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 3 : <span style="font-weight:bold">OBLIGATIONS DES PARTIES</span>-->
+<!--                            </p>-->
+<!--                            <p>-->
+<!--                                Nom de l'enseignant-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Dans le cadre du présent contrat, chaque partie s’engage à respecter ses obligations.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                	3.1 Obligations de l’enseignant-->
+<!--                            </p>-->
+<!--                            <p>-->
+<!--                                L’Enseignant Associé s’engage à :-->
+<!--                            </p>-->
+
+<!--                            <ul>-->
+<!--                              <li>concevoir les cours ci-dessus </li>-->
+<!--                              <li> assurer le rôle de conseiller pédagogique auprès des étudiants du cours du jour et du soir, et à rencontrer, en dehors des heures de cours, les stagiaires qui le demanderont dans le cadre de leur évolution professionnelle ;</li>-->
+<!--                              <li> être présent en classe lors des contrôles, en particulier la première heure de l’examen final. Le temps consacré à l’examen final est inclus dans le volume horaire alloué au cours ;</li>-->
+<!--                              <li> se conformer au syllabus du cours du  CESAG, déposer et faire valider les documents didactiques , deux (02) semaines avant le début du cours. Ces documents rédigés suivant les exigences et avec le logo du CESAG, ne peuvent être utilisés ou reproduits comme tels sans son autorisation préalable ;</li>-->
+<!--                              <li> se conformer aux exigences pédagogiques (pédagogie active) et de diffusion (mode hybride) des enseignements selon la politique du CESAG ;</li>-->
+<!--                              <li> procéder après les examens, à la restitution des résultats / mise à disposition des corrigés aux étudiants avec les corrections et les commentaires utiles sur le travail de chacun ;</li>-->
+<!--                              <li> remettre les notes d’examen et de contrôle des connaissances des étudiants au plus tard deux (02) semaines après la réception des copies et déposer si nécessaire un sujet de rattrapage et le corriger.</li>-->
+<!--                              <li> être présent aux réunions pédagogiques concernant le cycle pour lequel il dispense des enseignements ;</li>-->
+<!--                              <li> s’interdire, tant pendant la durée du présent contrat qu’après son expiration, de 	divulguer l’information confidentielle dont il aurait eu connaissance dans le cadre de 	l’animation du cours, sur le CESAG, ses étudiants et ses activités ;</li>-->
+<!--                              <li> se soumettre à toute procédure d’évaluation ou de suivi de la qualité des enseignements définie par le CESAG ;</li>-->
+<!--                              <li> prévoir un ordinateur portable personnel  ;</li>-->
+<!--                              <li> à ne jamais ternir l’image du CESAG à n’importe où il se trouvera ;</li>-->
+<!--                              <li> se conformer à la politique du CESAG contre le harcèlement sexuel.</li>-->
+<!--                            </ul>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                	3.2 obligations du CESAG-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Pour les besoins de l’exécution du présent contrat, le CESAG met à la disposition de l’Enseignant associé les éléments adéquats de sa logistique pédagogique. Le responsable de parcours est l’interlocuteur direct du prestataire.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 4 : STATUT DE L’ENSEIGNANT ASSOCIE-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                En vertu du présent contrat, l’Enseignant Associé n’est pas un employé du CESAG. En conséquence, le statut du personnel du CESAG ne lui est pas applicable.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 5 : REMUNERATION-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                L’Enseignant associé percevra une rémunération brute au taux horaire de Taux horaire F CFA après service fait, 30 jours calendaires après la remise des relevés de notes et la note d’honoraires  dûment signés  et transmis à la scolarité des parcours. Le paiement des honoraires s’effectuera par virement sur le compte indiqué. Toutefois, exceptionnellement le paiement pourra s’effectuer par chèque bancaire.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 6 :	RETENUES FISCALES-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Le CESAG retiendra à la source sur les honoraires, la taxe de 5% prévue par l’article 200 de la loi 2012-31 du 31 Décembre 2012 portant Code Général des Impôts du Sénégal. Les retenues opérées à ce titre seront reversées à l’Etat du Sénégal.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 7 : INTERDICTION DE CESSION-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                L’Enseignant Associé s’interdit de céder ou de donner en garantie le présent contrat ou l’un quelconque des droits ou obligations, sans l’accord écrit préalable du CESAG.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 8 : RESILIATION DU CONTRAT-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                 Chaque partie peut résilier le contrat, à tout moment, de façon unilatérale à condition d’en référer à l’autre partie, par lettre recommandée avec accusé de réception ou courriel trente (30) jours calendaires avant la prise d’effet de la résiliation.-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Le CESAG se réserve le droit de résilier le présent contrat à tout moment sans préavis ni paiement d’honoraires des heures de cours exécutées lorsque :-->
+<!--                            </p>-->
+
+<!--                            <ul>-->
+<!--                              <li> les prestations fournies par l’enseignant ne donnent pas satisfaction; et ne sont pas conformes au cahier de charges (syllabus de cours, plan de cours etc.) après en avoir avisé l’enseignant associé ;</li>-->
+<!--                              <li> son indisponibilité est constatée après le démarrage des enseignements (trois absences successives) ;</li>-->
+<!--                              <li> l’enseignant associé ne prend pas en compte les recommandations des évaluations antérieures de ses enseignements.</li>-->
+<!--                            </ul>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 9 : MODIFICATION DU CONTRAT-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Toute modification apportée au présent contrat doit se faire par avenant dûment conclu entre les parties.-->
+<!--                            </p>-->
+
+<!--                            <p style="font-weight:bold">-->
+<!--                                ARTICLE 10 : REGLEMENT DES LITIGES-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                Les parties s'efforcent de régler à l'amiable, tout différend né de l'exécution ou de l'interprétation du présent contrat.-->
+<!--                            </p>-->
+
+<!--                            <p>-->
+<!--                                A défaut de règlement à l'amiable, le différend est, de convention expresse, soumis à l'arbitrage.-->
+<!--                            </p>-->
+<!--                                -->
+<!--&lt;!&ndash;                                &ndash;&gt;-->
+<!--&lt;!&ndash;                            <p style='margin-bottom:0cm;line-height:normal'><b&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-bidi-font-weight:normal'><span style='font-size:10.0pt;font-family:&ndash;&gt;-->
+<!--&lt;!&ndash;"Arial",sans-serif'><span style='mso-tab-count:5'>                                                           </span><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-tab-count:1'>            </span><span style='mso-tab-count:2'>                        </span>Fait&ndash;&gt;-->
+<!--&lt;!&ndash;en deux (02) exemplaires originaux</span></b></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-bottom:0cm;line-height:normal'><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='font-size:5.0pt;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-bottom:0cm;line-height:normal'><b&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-bidi-font-weight:normal'><span style='font-size:10.0pt;font-family:&ndash;&gt;-->
+<!--&lt;!&ndash;"Arial",sans-serif'><span style='mso-tab-count:8'>                                                                                               </span>Dakar,&ndash;&gt;-->
+<!--&lt;!&ndash;le</span></b></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-bottom:0cm;line-height:normal'><b&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-bidi-font-weight:normal'><span style='font-size:5.0pt;font-family:&ndash;&gt;-->
+<!--&lt;!&ndash;"Arial",sans-serif'><o:p>&nbsp;</o:p></span></b></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-bottom:0cm;line-height:normal'><b&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-bidi-font-weight:normal'><span style='font-size:10.0pt;font-family:&ndash;&gt;-->
+<!--&lt;!&ndash;"Arial",sans-serif'>L’Enseignant associé<span style='mso-tab-count:5'>                                                 </span><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-tab-count:1'>            </span>Pour le CESAG,</span></b></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-bottom:0cm;line-height:normal'><b&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='font-size:10.0pt;font-family:"Arial",sans-serif'>(Veuillez faire&ndash;&gt;-->
+<!--&lt;!&ndash;précéder votre signature</span></i></b></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-bottom:0cm;line-height:normal'><span&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;<b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:&ndash;&gt;-->
+<!--&lt;!&ndash;normal'><span style='font-size:10.0pt;font-family:"Arial",sans-serif'>de</span></i></b></span><b&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='font-size:10.0pt;font-family:"Arial",sans-serif'> la mention manuscrite&ndash;&gt;-->
+<!--&lt;!&ndash;« Lu et approuvé »)</span></i></b><b style='mso-bidi-font-weight:normal'><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='font-size:10.0pt;font-family:"Arial",sans-serif'><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-spacerun:yes'>    </span><span style='mso-tab-count:1'>       </span><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-tab-count:1'>            </span><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-spacerun:yes'>          </span>Le Directeur Général,</span></b></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;line-height:normal'><span style='font-size:5.0pt;&ndash;&gt;-->
+<!--&lt;!&ndash;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;line-height:normal'><span style='font-size:5.0pt;&ndash;&gt;-->
+<!--&lt;!&ndash;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;line-height:normal'><span style='font-size:5.0pt;&ndash;&gt;-->
+<!--&lt;!&ndash;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;line-height:normal'><span style='font-size:5.0pt;&ndash;&gt;-->
+<!--&lt;!&ndash;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;line-height:normal'><span style='font-size:5.0pt;&ndash;&gt;-->
+<!--&lt;!&ndash;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;line-height:normal'><span style='font-size:5.0pt;&ndash;&gt;-->
+<!--&lt;!&ndash;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;line-height:normal'><span style='font-size:5.0pt;&ndash;&gt;-->
+<!--&lt;!&ndash;font-family:"Arial",sans-serif'><o:p>&nbsp;</o:p></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<p style='margin-top:0cm;margin-right:28.25pt;margin-bottom:&ndash;&gt;-->
+<!--&lt;!&ndash;0cm;margin-left:0cm;text-align:justify;line-height:normal'><b style='mso-bidi-font-weight:&ndash;&gt;-->
+<!--&lt;!&ndash;normal'><u><span style='font-size:10.0pt;font-family:"Arial",sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;mso-fareast-font-family:"Times New Roman";color:black;mso-fareast-language:&ndash;&gt;-->
+<!--&lt;!&ndash;FR'><w:Sdt DocPart="DefaultPlaceholder_-1854013440" ID="1040553694">M. ou Mme <span&ndash;&gt;-->
+<!--&lt;!&ndash; style='color:#BFBFBF;mso-themecolor:background1;mso-themeshade:191;font-weight:&ndash;&gt;-->
+<!--&lt;!&ndash; normal'>…………………………….</span></w:Sdt></span></u></b><b style='mso-bidi-font-weight:&ndash;&gt;-->
+<!--&lt;!&ndash;normal'><span style='font-size:10.0pt;font-family:"Arial",sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;mso-ansi-language:PT-BR'><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-spacerun:yes'>                            </span><span&ndash;&gt;-->
+<!--&lt;!&ndash;style='mso-spacerun:yes'>                 </span><span style='mso-spacerun:yes'>   </span><u>Pr Balibié Serge Auguste BAYALA</u></span></b></p>&ndash;&gt;-->
+
+
+<!--                        </div>-->
+<!--                        </div>-->
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

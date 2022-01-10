@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+  
+
+
+
+  <!-- allumni -->
+<!-- opportinuté -->
+
+
+<!--  cotise year  -->
+   <record id="sm_alumni_year_view_form" model="ir.ui.view">
+            <field name="name">sm_alumni_year_view_form</field>
+            <field name="model">sm.cotiseyear</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Name">
+                    <sheet>
+                        <group col="4">
+                            <field name="year"/>
+                            <field name="amount_year"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="sm_alumni_year_tree" model="ir.ui.view">
+            <field name="name">Cotisation Annuelle</field>
+            <field name="model">sm.cotiseyear</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name" >
+                    <field name="year"/>
+                     <field name="amount_year"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="sm_alumni_year_action" model="ir.actions.act_window">
+            <field name="name">Cotisation Annuelle</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.cotiseyear</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+         <!-- cotise_type -->
+         
+         <record id="sm_alumni_type_view_form" model="ir.ui.view">
+            <field name="name">sm_alumni_type_view_form</field>
+            <field name="model">cotise.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Name">
+                    <sheet>
+                        <group col="4">
+                            <field name="cotise_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="sm_alumni_year_tree" model="ir.ui.view">
+            <field name="name">Type cotisation</field>
+            <field name="model">cotise.type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name" >
+                     <field name="cotise_id"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="sm_alumni_type_cot_action" model="ir.actions.act_window">
+            <field name="name">Type de cotisation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cotise.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+<!-- ;;;;;;; -->
+   <record id="sm_financement_form_inherit" model="ir.ui.view">
+            <field name="name">sm.financement.form</field>
+            <field name="model">sm.alumni.financement</field>
+            <field name="inherit_id" ref="school_mgmt.sm_alumni_financement_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='project_amount']"  position="replace">
+                          <field name="project_amount" />
+                          <field name="descript"/> 
+                          <field name="cotise_type" widget="many2many_tags"  />
+                           <group >
+                          <field name="descript_fine"/> 
+                          </group>
+                 </xpath>
+            </field>
+    </record> 
+
+    <record id="sm_cotise_form_inherit" model="ir.ui.view">
+            <field name="name">sm.alumni.cotisation</field>
+            <field name="model">sm.alumni.cotisation</field>
+            <field name="inherit_id" ref="school_mgmt.sm_alumni_cotisation_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]"  position="replace">
+                              <group col="4">
+                            <field name="year_id"/>
+                            <field name="amount"/>
+                              </group>
+                             <group col="4">
+                            <field name="excepfine"/>
+                             <field name="cotise_type" widget="many2many_tags" />
+                              </group>
+                 </xpath>
+            </field>
+    </record> 
+
+<!-- àààààààà -->
+          
+          
+          
+   
+    <record id="sm_alumni_project_view_form" model="ir.ui.view">
+            <field name="name">sm_alumni_project_view_form</field>
+            <field name="model">sm.alumni.projet</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Name">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="amount"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record id="sm_project_form_inherit" model="ir.ui.view">
+            <field name="name">sm.alumni.project</field>
+            <field name="model">sm.alumni.projet</field>
+            <field name="inherit_id" ref="sm_alumni_project_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]"  position="after">
+                          <group >
+                          <field name="descript"/> 
+                          </group>
+                          <group string="Finacements" >
+                            <field name="finance_id"   >  
+                              <tree string="Finacements"   >
+                                    <field name="name"/>
+                                    <field name="amount"/>
+                                    <field name="student_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                 </xpath>
+            </field>
+    </record>
+
+        <record id="sm_alumni_project_view_search" model="ir.ui.view">
+            <field name="name">sm_alumni_project_view_search</field>
+            <field name="model">sm.alumni.projet</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Name">
+                    <field name="name"/>
+                    <field name="amount"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="sm_alumni_project_tree" model="ir.ui.view">
+            <field name="name">Projet</field>
+            <field name="model">sm.alumni.projet</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name" >
+                    <field name="name"/>
+                     <field name="amount"/>
+                </tree>
+            </field>
+        </record> 
+
+        
+        
+        <record id="sm_alumni_project_action" model="ir.actions.act_window">
+            <field name="name">Projets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.alumni.projet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+  <!-- herite programm view -->
+        <record id="sm_program_form_inherit" model="ir.ui.view">
+            <field name="name">sm.program.form</field>
+            <field name="model">sm.program</field>
+            <field name="inherit_id" ref="school_mgmt.sm_program_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div/button[@name='action_open_program_session']" position="after">
+                   <button name="action_ue_count" string="UE" type="object" class="oe_stat_button" icon="fa-check-circle"/>
+                    <button name="action_semestre_count" string="Semestre" type="object" class="oe_stat_button" icon="fa-check-circle"/>
+                    <button name="action_level_count" string="Niveau" type="object" class="oe_stat_button" icon="fa-check-circle"/>
+                    <button name="action_classe_count" string="Classe" type="object" class="oe_stat_button" icon="fa-check-circle"/>  
+                </xpath>
+                <xpath expr="//group/field[@name='code']"  position="after">
+                          <field name="year_id"/>
+                           <field name="nomcourt"/>
+                           <newline/>
+                           <field name="public" colspan="4"/>
+                           <field name="condition"/>
+                           <field name="libelle"/>
+                 </xpath>
+            </field>
+        </record>
+        
+
+<!-- herite programm view -->
+<!-- 
+          <record id="sm_level_action_inherit" model="ir.ui.view">
+            <field name="name">sm.level.kanaban</field>
+            <field name="model">sm.level</field>
+            <field name="inherit_id" ref="school_mgmt.sm_level_action"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div/button[@name='action_open_program_session']" position="after">
+                   <button name="action_ue_count" string="UE" type="object" class="oe_stat_button" icon="fa-check-circle"/>
+                    <button name="action_semestre_count" string="Semestre" type="object" class="oe_stat_button" icon="fa-check-circle"/>
+                    <button name="action_level_count" string="Niveau" type="object" class="oe_stat_button" icon="fa-check-circle"/>
+                    <button name="action_classe_count" string="Classe" type="object" class="oe_stat_button" icon="fa-check-circle"/>  
+                </xpath>
+                <xpath expr="//group/field[@name='code']"  position="after">
+                          <field name="year_id"/>
+                           <field name="nomcourt"/>
+                           <newline/>
+                           <field name="public" colspan="4"/>
+                           <field name="condition"/>
+                           <field name="libelle"/>
+                 </xpath>
+            </field>
+        </record> -->
+
+         <record id="sm_level_form_inherit" model="ir.ui.view">
+            <field name="name">sm.level.form</field>
+            <field name="model">sm.level</field>
+            <field name="inherit_id" ref="school_mgmt.sm_level_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="before">
+                      <div class="oe_right oe_button_box">
+                            <button name="action_classe_count" type="object" class="oe_stat_button" icon="fa-list">
+                                <field name="classe_count" widget="statinfo" string="Classe"/>
+                            </button>
+                            <button name="action_smester_count" type="object" string="Semestre" class="oe_stat_button" icon="fa-list" />
+                            
+                            <button name="action_student_count" type="object" class="oe_stat_button" icon="fa-list" >
+                                <field name="student_count" widget="statinfo" string="Etudiants"/> 
+                            </button>
+                        </div>
+                </xpath>
+                <xpath expr="//group[2]"  position="before">
+                          <group col="4">
+                         <field name="cm"/>
+                        <field name="tdtp"/>
+                        <field name="total"/>
+                        <field name="tpe"/>
+                              </group >
+                 </xpath>
+                 <xpath expr="//group[3]"  position="after">
+                         <notebook colspan="4">
+                        <page string="Enseignement" >
+                             <field name="semestre_id"  domain="[('program_id','=',program_id),('level_id','=',level_id)]" >  
+                              <tree string="Enseignement"   >
+                              <!-- options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" -->
+                                    <field name="name"/>
+                                    <field name="credit"/>
+                                    <field name="cm"/>
+                                    <field name="tdtp"/>
+                                    <field name="total"/>
+                                    <field name="tpe"/> 
+                                    <!-- <field name="semester_line"/> -->
+                                </tree>
+                                
+                            </field>
+                             <group col="4">
+                                    <field name="unit_id"  domain="[('program_id','=',program_id),('level_id','=',level_id)]" >
+                                     <tree string="Enseignement"  >
+                                            <field name="name"/>
+                                            <field name="credit"/>
+                                            <field name="cm"/>
+                                            <field name="tdtp"/>
+                                            <field name="total"/>
+                                            <field name="tpe"/> 
+                                            <field name="module_ids"/> 
+                                    </tree>
+                                </field>
+                              </group >
+                        </page >                    
+                    </notebook >
+                 </xpath>
+
+            </field>
+        </record>
+
+        <record id="kanban_level_view" model="ir.ui.view">
+        <field name="name">level KANBAN</field>
+        <field name="model">sm.level</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="program_id">
+               <field name="name" />
+                <field name="program_id" />
+                 <field name="cm"/>
+                <field name="tdtp"/>
+                <field name="total"/>
+                <field name="tpe"/> 
+                <field name="semestre_id"/>
+                <field name="classe_count"/>
+                 <field name="student_count"/>
+                 <field name="color" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}} oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <ul class="oe_dropdown_menu">
+                                    <li>
+                                        <a type="edit">Edit...</a>
+                                    </li>
+                                    <li>
+                                        <a type="delete">Delete</a>
+                                    </li>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                <table class="oe_kanban_table">
+                                    <tr>
+                                        <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                            <h4>
+                                                <a type="open">
+                                                    <!-- <field name="program_id" /> -->
+                                                    <field name="name" />
+                                                </a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                            <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                <table class="oe_kanban_table">
+                                    <tr width="300">
+                                        <td valign="top" align="left" style="padding-left:10px;">
+                                            <table>
+                                                
+                                                <tr>
+                                                    <td>CM :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="cm" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TD/TP :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="tdtp" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="total" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TPE : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="tpe" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Semestre :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="semestre_id" widget='many2many_tags'/>
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>UE : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="unit_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nombre de classe : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="classe_count" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nombre d'etudiant : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="student_count" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                <div class="oe_kanban_left" style="margin-left:10px;">
+                                    <br />
+                                    <a role="button" string="Edit" class="btn btn-sm btn-default fa fa-pencil" type="edit" aria-label="edit" title="edit"/>
+                                    <a role="button" string="Change Color" icon="color-picker" type="color" name="color" />
+                                </div>
+                                <br class="oe_kanban_clear" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sm_level_standard_tree" model="ir.ui.view">
+            <field name="name">Niveau</field>
+            <field name="model">sm.level_standard</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+       
+        <record id="sm_level_standars_action" model="ir.actions.act_window">
+            <field name="name">Niveaux</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.level_standard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <!-- herite view semestre -->
+
+        <record id="sm_semestre_form_inherit" model="ir.ui.view">
+            <field name="name">sm.semestre.form</field>
+            <field name="model">sm.semester</field>
+            <field name="inherit_id" ref="school_mgmt.sm_semester_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]"  position="after">
+                          <group col="4">
+                         <field name="cm"/>
+                        <field name="tdtp"/>
+                        <field name="total"/>
+                        <field name="tpe"/>
+                              </group >
+                 </xpath>
+                <xpath expr="//group[3]"  position="replace">
+                          <notebook colspan="4">
+                        <page string="Unités d'enseignement">
+                             <field name="unit_ids" domain="[('level_id','=',level_id),('program_id','=',program_id)]" >
+                                <tree editable="bottom">
+                                     <field name="name"/>
+                                    <field name="cm"/>
+                                    <field name="tdtp"/>
+                                    <field name="total"/>
+                                    <field name="tpe"/> 
+                                    <field name="module_ids" widget="many2many"   />
+                                </tree>
+                            </field>                     
+                            </page >                    
+                    </notebook >
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="kanban_semester_view" model="ir.ui.view">
+        <field name="name">semester KANBAN</field>
+        <field name="model">sm.semester</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="level_id">
+               <field name="name" />
+                <field name="level_id" />
+                <field name="program_id" />
+                <field name="year_id" />
+                 <field name="cm"/>
+                <field name="tdtp"/>
+                <field name="total"/>
+                <field name="tpe"/> 
+                <field name="unit_ids"/>
+                 <field name="color" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}} oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <ul class="oe_dropdown_menu">
+                                    <li>
+                                        <a type="edit">Edit...</a>
+                                    </li>
+                                    <li>
+                                        <a type="delete">Delete</a>
+                                    </li>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                <table class="oe_kanban_table">
+                                    <tr>
+                                        <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                            <h4>
+                                                <a type="open">
+                                                    <!-- <field name="program_id" /> -->
+                                                    <field name="name" />
+                                                </a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                            <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                <table class="oe_kanban_table">
+                                    <tr width="300">
+                                        <td valign="top" align="left" style="padding-left:10px;">
+                                            <table>
+                                                
+                                                <tr>
+                                                    <td>CM :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="cm" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TD/TP :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="tdtp" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="total" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TPE : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="tpe" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>UE : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="unit_ids" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                <div class="oe_kanban_left" style="margin-left:10px;">
+                                    <br />
+                                    <a role="button" string="Edit" class="btn btn-sm btn-default fa fa-pencil" type="edit" aria-label="edit" title="edit"/>
+                                    <a role="button" string="Change Color" icon="color-picker" type="color" name="color" />
+                                </div>
+                                <br class="oe_kanban_clear" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+     <record id="sm_semestre_view_tree" model="ir.ui.view">
+            <field name="name">semestre</field>
+            <field name="model">sm.smster</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_sem_action" model="ir.actions.act_window">
+            <field name="name">Semestres</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.smster</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+
+        <!-- herite view unit -->
+
+
+
+        <record id="sm_unit_form_inherit" model="ir.ui.view">
+            <field name="name">sm.unit.form</field>
+            <field name="model">sm.unit</field>
+            <field name="inherit_id" ref="school_mgmt.sm_unit_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//group[1]"  position="replace"> 
+                 <group col="4"  >
+                  <field name="code"/>
+                    <field name="credit"/>
+                    <field name="name" />
+                    <field name="program_id" widget="selection" />
+                    <field name="level_id" widget="selection" domain="[('program_id','=',program_id)]"  />
+                     </group> 
+                      </xpath>
+                <!-- <xpath expr="//group/field[@name='program_id']"  position="attribute">
+                   <attribute name="attrs">{}</attribute>
+                </xpath> -->
+                <!-- <xpath expr="//page[@string='level_id']" position="attributes">
+                     <attribute name="attrs">{}</attribute>
+                </xpath> -->
+                <!-- <xpath expr="//group/field[@name='credit']"  position="replace">
+                 <field name="credit"/>
+                </xpath>
+                <xpath expr="//group/field[@name='credit']"  position="replace">
+                 <field name="credit"/>
+                 </xpath>  -->
+                    <xpath expr="//group[2]"  position="replace">
+                        <group col="4"  string='Volume Horaire'>
+                        <field name="cm"/>
+                        <field name="tdtp"/>
+                        <field name="total"/>
+                        <field name="tpe"/>
+                        </group>
+                    </xpath>
+                    <xpath expr="//group[2]"  position="after">
+                        <group col="4" string="Modules">
+                            <field name="module_ids" >
+                                <tree string="ECUE" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="nom"/>
+                                    <field name="modulecredi"/>
+                                    <field name="cm"/>
+                                    <field name="tdtp"/>
+                                    <field name="total"/>
+                                    <field name="tpe"/>
+                                </tree>
+                            </field>
+                        </group>
+                     </xpath>
+               
+            </field>
+        </record>
+
+    <!-- module view -->
+
+           <record id="sm_module_view_tree" model="ir.ui.view">
+            <field name="name">sm_module_view_tree</field>
+            <field name="model">sm.module</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name">
+                <field name="name"/>
+                    <field name="nom"/>
+                    <field name="modulecredi"/>
+                    <!-- <field name="code"/> -->
+                    <field name="cm"/>
+                    <field name="tdtp"/>
+                    <field name="total"/>
+                    <field name="tpe"/>
+                </tree>
+            </field>
+        </record>
+
+       
+
+        <record id="kanban_module_view" model="ir.ui.view">
+        <field name="name">module KANBAN</field>
+        <field name="model">sm.module</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="code" >
+                <field name="domaine" />
+               <field name="code"/>
+                <field name="name"/>
+                <field name="cm"/>
+                <field name="tdtp"/>
+                 <field name="total"/>
+                <field name="tpe"/>
+                <field name="modulecredi"/>
+                 <field name="color" />
+                  
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}} oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <ul class="oe_dropdown_menu">
+                                    <li>
+                                        <a type="edit">Edit...</a>
+                                    </li>
+                                    <li>
+                                        <a type="delete">Delete</a>
+                                    </li>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                <table class="oe_kanban_table">
+                                    <tr>
+                                        <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                            <h4>
+                                                <a type="open">
+                                                <field name="name" />
+                                                    <field name="code" />
+                                                    
+                                                </a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                            <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                <table class="oe_kanban_table">
+                                    <tr width="300">
+                                        <td valign="top" align="left" style="padding-left:10px;">
+                                            <table>
+                                                <tr>
+                                                    <td>Credit :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="modulecredi" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CM :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="cm" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TD/TP :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="tdtp" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="total" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TPE : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="tpe" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                <div class="oe_kanban_left" style="margin-left:10px;">
+                                    <br />
+                                    <a role="button" string="Edit" class="btn btn-sm btn-default fa fa-pencil" type="edit" aria-label="edit" title="edit"/>
+                                    <a role="button" string="Change Color" icon="color-picker" type="color" name="color" />
+                                </div>
+                                <br class="oe_kanban_clear" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+
+     <record id="sm_module_form_inherit" model="ir.ui.view">
+            <field name="name">sm.module.form</field>
+            <field name="model">sm.module</field>
+            <field name="inherit_id" ref="school_mgmt.sm_module_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='subject_id']"  position="replace">
+
+                          
+                         <field name="nom"/>
+                        <field name="domaine"/>
+                        <field name="modulecredi"/>
+                        <field name="sm_classroom_id" invisible="1" />
+                             
+                         </xpath>
+                <xpath expr="//group/field[@name='credit']"  position="replace">
+
+                          <group col="4">
+                         <field name="cm"/>
+                        <field name="tdtp"/>
+                        <field name="total"/>
+                        <field name="tpe"/>
+                              </group >
+                 </xpath>
+              
+            </field>
+        </record>
+
+        
+
+        
+         <record id="sm_domaine_view_tree" model="ir.ui.view">
+            <field name="name">domaine</field>
+            <field name="model">sm.domaine</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name" editable="bottom">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="sm_domaine_action" model="ir.actions.act_window">
+            <field name="name">Domaine</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.domaine</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+<!-- herite Enseignats -->
+          <record id="sm_faculty_form_inherit" model="ir.ui.view">
+            <field name="name">sm.faculty.form</field>
+            <field name="model">sm.faculty</field>
+            <field name="inherit_id" ref="school_mgmt.sm_faculty_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="before" >
+                      <div name="buttons" class="oe_right oe_button_box">
+                            <button class="oe_stat_button" icon="fa-gavel" string="" help="Total heures de cours" >
+                                <field string="Heures de cours" name="total_point" widget="statinfo"/>
+                            </button>
+<!--                            - -->
+<!--                                    <button class="oe_stat_button" type="action" icon="fa-gavel" string="" context="{'search_default_user_id': name,'default_name': name}"-->
+<!--                                            help="Other to-dos for this user" >-->
+<!--                                    <field string="Solde" name="user_todo_count" widget="statinfo"/>-->
+<!--                                    </button>-->
+                        </div>
+
+                        </xpath>
+                    <xpath expr="//group[1]" position="before" >
+                        <label for="date"/>
+                            <h1>
+                                <field name="date"/>
+                            </h1>
+
+                        <!-- <label for="name"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        <label for="lastname"/>
+                            <h1>
+                                <field name="lastname"/>
+                            </h1> -->
+                        </xpath>
+                    <xpath expr="//group[1]" position="after" >
+                        <group string="Diplome">
+                            <field name="diplome_id"/>
+                            <field name="sigle_diplome"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Modules Enseignés">
+                                <field name="contract_ids">
+                                    <tree>
+                                        <field name="program_id" />
+                                        <field name="classroom_id"/>
+<!--                                        <field name="level_id"/>-->
+                                        <field name="hours"/>
+                                        <field name="module_id"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Historiques Enseignements">
+                                <field name="history_ids">
+                                    <tree>
+                                        <field name="year_id"/>
+                                        <field name="program_id"/>
+                                        <field name="classroom_id"/>
+                                        <field name="level_id"/>
+                                        <field name="hours"/>
+                                        <field name="module_id"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                    </tree>
+                                </field>
+                            </page>
+                             <page string="Historique des contrats">
+                                <field name="attachment_id"/>
+                            </page>
+                        </notebook>
+                 </xpath>
+              
+            </field>
+        </record>
+
+        <!-- iherite classroom view -->
+
+        <record id="sm_classroom_form_inherit" model="ir.ui.view">
+            <field name="name">sm.classroom.form</field>
+            <field name="model">sm.classroom</field>
+            <field name="inherit_id" ref="school_mgmt.sm_classroom_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[1]" position="before">
+                    <header>
+                        <button name="do_product_revision" string="Dupliquer la classe" type="object" icon="gtk-go-forward"/>
+                    </header>
+                </xpath>
+                <xpath expr="//div[1]" position="inside">
+                    <button name="action_timetable_count" type="object" class="oe_stat_button" string="Emploi du temps" icon="fa-list"/>                    
+                </xpath>
+                <!-- <xpath expr="//group/field[@name='name']"  position="replace">
+                      <field name="name"/>
+                </xpath> -->
+                <xpath expr="//group[1]"  position="after">
+                       <notebook>
+                        <page string="Modules" readonly='1' >
+                            <field name="module_ids">
+                                <tree editable="true">
+                                    <field name="module_id"/>
+                                    <field name="domain_id"/>
+                                    <field name="tpe"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Etudiants" readonly='1' >
+                            <field name="student_ids">
+                                <tree editable="true">
+                                    <field name="firstname"/>
+                                    <field name="lastname"/>
+                                </tree>
+                            </field>
+                        </page>
+                     </notebook >
+                          
+                 </xpath>
+            </field>
+        </record>
+
+         <record id="sm_classe_view_tree" model="ir.ui.view">
+            <field name="name">Classe</field>
+            <field name="model">sm.class</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="sm_class_action" model="ir.actions.act_window">
+            <field name="name">Classes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.class</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+
+
+
+    </data>
+</openerp>

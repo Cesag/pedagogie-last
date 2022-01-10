@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="report_sm_student_w_2">
+
+    <t t-foreach="docs" t-as="o">
+
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+         <div class="page" style="padding: 16px;">
+            
+<!--            <div t-if="o.certificat_print != 0" style="position:absolute; opacity:0.25; z-index:1000; transform:rotate(300deg); -webkit-transform:rotate(300deg); width:150%; margin-left: -5cm; margin-top: 7cm">-->
+<!--                <p style="font-size:150px;"> DUPLICATA </p>-->
+<!--            </div>-->
+            
+            <p style="font-size: 18px; text-align: right; margin-top: 5.5cm; margin-right: 3cm;"><span> <span t-field="o.subscription_date"/> </span> </p>
+            
+            <p style="text-align: center; margin-top: 3cm;"><span style="font-size: 43px; font-weight: bold;"> CERTIFICAT D'INSCRIPTION</span></p>
+            <br/>
+            
+            <p style="font-size: 23px; margin-top: 1cm; text-align: justify; text-justify: inter-word;">
+            
+                Le Centre Africain d'Etudes Supérieures en Gestion (CESAG) certifie que <span t-field="o.title"/> <span t-raw="o.name.strip()"/>, 
+                né(e) le <span t-field="o.birth_date" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/> à <span t-field="o.birth_place"/> (<span t-field="o.birth_country_id"/>), 
+                admis(e) au programme de <span t-field="o.program_id.name"/> (niveau <span t-field="o.level_id"/>), est régulièrement inscrit(e) au titre de l'année académique <span t-field="o.year_id"/>.
+                
+                <br/>
+                
+                En foi de quoi, le présent certificat lui est délivré pour servir et valoir ce que de droit.
+            
+            </p>
+            
+            <p style="font-size: 18px; text-align: right; margin-top: 3cm;"> 
+                Le Chef du Service Scolarité et Bibliothèque 
+            </p>
+            
+             <p style="margin-top: 0.5cm;">
+                    <img t-if="company.x_signature" t-att-src="'data:image/png;base64,%s' % company.x_signature" style="width: 50%; margin-left: 11cm;"/>
+             </p>
+            
+             <p style="font-size: 14px; text-align: center; margin-top: 5cm;">
+                Ce certificat ne peut être délivré qu’en un seul original – Vous êtes invité(e) à en faire des photocopies légalisées. 
+              </p>
+
+         </div>
+
+    </t>
+
+</template>
+
+</data>
+</openerp>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[3]/group/group/field[@name='active']" position="after">
+                    <field name="teacher"/>
+                    <button name="attr_create" string="Professeur permanent" icon="gtk-apply" type="object" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sm_faculty_form_inherit" model="ir.ui.view">
+            <field name="name">sm.faculty.form</field>
+            <field name="model">sm.faculty</field>
+            <field name="inherit_id" ref="school_mgmt.sm_faculty_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='faculty_state']" position="after">
+                    <field name="domain" widget="many2many_tags"/>
+                    <field name="permanent"/>
+                    <field name="other_quality" attrs="{'invisible': [('faculty_quality','in',('3'))]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sm_classroom_form_inherit" model="ir.ui.view">
+            <field name="name">sm.classroom.form</field>
+            <field name="model">sm.classroom</field>
+            <field name="inherit_id" ref="school_mgmt.sm_classroom_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='name']" position="after">
+                    <field name="test"/>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record id="view_ofor_search_under_activities" model="ir.ui.view">-->
+<!--          <field name="name">sm_faculty_view_search</field>-->
+<!--          <field name="model">sm.faculty</field>-->
+<!--          <field name="inherit_id" ref="school_mgmt.sm_faculty_view_search"/>-->
+<!--          <field name="arch" type="xml">-->
+<!--              <search string="Recherche des autres activités par pta">-->
+<!--                  <field name="domain"/>-->
+<!--                  <separator/>-->
+<!--                  <group expand="0" string="Regroupe par..." colspan="16">-->
+<!--                      <filter string="Voir les autres activités par PTA" domain="[]" icon="terp-personal" context="{'group_by':'domain'}"/>-->
+<!--                  </group>-->
+<!--              </search>-->
+<!--          </field>-->
+<!--       </record>-->
+
+<!--    <record id="view_cesag_faculty_search" model="ir.ui.view">-->
+<!--      <field name="name">sm_faculty_view_search</field>-->
+<!--      <field name="model">sm.faculty</field>-->
+<!--      <field name="inherit_id" ref="school_mgmt.sm_faculty_view_search"/>-->
+<!--      <field name="arch" type="xml">-->
+<!--&lt;!&ndash;          <search string="Recherche des enseignants">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <field name="sous_realisation_id" filter_domain="[('sous_realisation_id','ilike',self)]" string = "Sous réalisation"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              <field name="domain"/>&ndash;&gt;-->
+<!--&lt;!&ndash;              <field name="permanent"/>&ndash;&gt;-->
+<!--&lt;!&ndash;              <separator/>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <filter string="A partir de la semaine passée" name="currentandlastlastweeks" domain="[&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                      ('date_rec','&gt;=',(context_today()+relativedelta(weeks=-2,days=1,weekday=0)).strftime('%Y-%m-%d')),&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                      ('date_rec','&lt;',(context_today()+relativedelta(weekday=6)).strftime('%Y-%m-%d'))&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              ]" help="Toutes les réalisations reçues à partir de la semaine dernière" />&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <filter name="groupby_month" context="{'group_by': 'date_rec:month','order_by':'date_rec desc'}" string="Voir les réalisations par mois"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <filter name="groupby_year" context="{'group_by': 'date_rec:year','order_by':'date_rec desc'}" string="Voir les réalisations par an"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <filter icon="terp-go-month" string="Voir les réalisations du mois en cours" name="month" domain="[('date_rec','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date_rec','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]" help="Les réalisations du mois courant"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              <group expand="0" string="Regroupe par..." colspan="16">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <filter string="Domaines de compétences" domain="[]" context="{'group_by':'domain'}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <filter string="Type d'enseignant" domain="[]" icon="terp-personal" context="{'group_by':'permanent'}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;              </group>&ndash;&gt;-->
+<!--&lt;!&ndash;          </search>&ndash;&gt;-->
+<!--      </field>-->
+<!--   </record>-->
+
+    </data>
+</openerp>

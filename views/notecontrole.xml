@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+  <data>
+
+<record id="view_note_controle_form" model="ir.ui.view">
+            <field name="name">note.contole.form</field>
+            <field name="model">note.controle</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml"> 
+                <form >
+                    
+                    <sheet>
+                        <separator string="Fiche de Note de controles" />
+                        <group colspan="4" col="4">
+                            <field name="date" />
+                            <field name="date_control" />
+                            <field name="year_id" options="{&quot;no_create&quot;: True}" />
+                            <field name="program_id" options="{&quot;no_create&quot;: True}" required="1"  />
+                            <field name="level_id" options="{&quot;no_create&quot;: True}" domain="[('program_id','=',program_id)]" required="1" />
+                            <field name="semestre_id" options="{&quot;no_create&quot;: True}"  domain="[('level_id','=',level_id)]" required="1"  />
+                            <field name="classroom_id" options="{&quot;no_create&quot;: True}"  domain="[('level_id','=',level_id)]" required="1"  />
+                            <field name="module_id"  widget="selection"  required="1"  />
+                            <field name="teacher_id"  widget="selection"  required="1"  />
+                            
+                            
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Note">
+                                <field name="student_ids" nolabel="1" colspan="4">
+                                    <tree string="Information des etudiants" editable="bottom"  create="false" delete="false"  >
+                                        <field name="name" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="prenom" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="note1"/>
+                                        <field name="note2"/>
+                                        <field name='moyenne' />
+                                        <field name="pcent" />
+                                        <field name="notecontrole"  />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record> 
+
+
+
+       <record id="kanban_note_view" model="ir.ui.view">
+        <field name="name">Note de controle</field>
+        <field name="model">note.controle</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="classroom_id" >
+                <field name="level_id" />
+                <field name="date" />
+                 <field name="semestre_id" />
+                <field name="classroom_id"   />
+                 <field name="module_id"   />
+                <field name="teacher_id"   />
+                 <field name="color" />
+                  
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}} oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <ul class="oe_dropdown_menu">
+                                    <li>
+                                        <a type="edit">Edit...</a>
+                                    </li>
+                                    <li>
+                                        <a type="delete">Delete</a>
+                                    </li>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                <table class="oe_kanban_table">
+                                    <tr>
+                                        <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                            <h4>
+                                                <a type="open">
+                                                    <field name="level_id" />
+                                                   
+                                                    <field name="semestre_id"   />
+                                                </a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                            <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                <table class="oe_kanban_table">
+                                    <tr width="300">
+                                        <td valign="top" align="left" style="padding-left:10px;">
+                                            <table>
+                                                <tr>
+                                                    <td>Date :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="date" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Module : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                             <field name="module_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Professeur: </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                           <field name="teacher_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                               
+                                                
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                <div class="oe_kanban_left" style="margin-left:10px;">
+                                    <br />
+                                    <a role="button" string="Edit" class="btn btn-sm btn-default fa fa-pencil" type="edit" aria-label="edit" title="edit"/>
+                                    <a role="button" string="Change Color" icon="color-picker" type="color" name="color" />
+                                </div>
+                                <br class="oe_kanban_clear" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+        <!-- Search View Of Standard Student Information -->
+
+        <record id="vie_note_search" model="ir.ui.view">
+            <field name="name">daily.search</field>
+            <field name="model">note.controle</field>
+            <field name="arch" type="xml">
+                <search string="controle">
+                    <field name="classroom_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter name="class" string="Class" help="By Class" context="{'group_by':'classroom_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree View Of Daily Attendance Information -->
+
+        <record id="view_controle_tree_1" model="ir.ui.view">
+            <field name="name">daily.tree</field>
+            <field name="model">note.controle</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Note de controle">
+                    <field name="date" />
+                    <field name="module_id" />
+                    <field name="teacher_id" />
+                    <field name="classroom_id" />
+                   
+                </tree>
+            </field>
+        </record>
+
+        
+
+        <!-- Action Of Form & Tree Views Of Daily Attendance Information -->
+
+         <record id="action_note_contole_view" model="ir.actions.act_window">
+            <field name="name">Notes de controle</field>
+             <field name="type">ir.actions.act_window</field>
+            <field name="res_model">note.controle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+        <record id="view_note_exam_form" model="ir.ui.view">
+            <field name="name">note.exam.form</field>
+            <field name="model">note.exam</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form >
+                <!-- <header>
+                        <button name="action_button_confirm" states="draft" string="Valider Notes " type="object" class="oe_stat_button" confirm = "Etes vous sure de vouloir confirmer les notes entrées ?"/>
+
+                        <button name="action_cancel" states="valider" string="Réctification" class="oe_stat_button" />
+                        
+                        <button name="action_passe_exam" states="valider" string="Passer à l'examan" class="oe_stat_button" />
+
+                        <button  icon="fa-check" name="action_cancelexam" states="valider" string="Réctification"  type="object"  />
+
+                        <button  icon="fa-check" name="action_cloture" states="valider" string="Clôturer" type="object"  />
+                        
+                        <field name="state" widget="statusbar" statusbar_visible="cancelexam,cloturer" statusbar_colors='{"waiting_date":"blue"}' />
+                
+                </header> -->
+                    
+                    <sheet>
+                        <separator string="Fiche de Note d'examan" />
+                        <group colspan="4" col="4">
+                            <field name="date" />
+                          <field name="session" required="1" />
+                            <field name="date_exam" />
+                            <field name="year_id" options="{&quot;no_create&quot;: True}" />
+                            <field name="program_id" options="{&quot;no_create&quot;: True}"  required="1"  />
+                            <field name="level_id" widget="selection"  domain="[('program_id','=',program_id)]" required="1" />
+                            <field name="semestre_id" widget="selection"  domain="[('level_id','=',level_id)]" required="1"  />
+                            <field name="classroom_id" widget="selection" domain="[('level_id','=',level_id)]" required="1"  />
+                            <field name="module_id"  widget="selection"  required="1"  />
+                            <field name="teacher_id"  widget="selection"  required="1"  />
+                            
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Note">
+                                <field name="student_ids" nolabel="1" colspan="4">
+                                    <tree string="Information des etudiants" editable="bottom"  create="false" delete="false" colors="red:val_id=='elimine';green:val_id=='valide';yellow:val_id=='nonvalide'" >
+                                        <field name="nom" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="prenom" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="notecontrole" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="notexam"  />
+                                        <field name="pcent"  />
+                                        <field name="notefinal"  />
+                                        <field name="val_id"  />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record> 
+        
+
+       
+        <record id="view_note_axam_search" model="ir.ui.view">
+            <field name="name">daily.search</field>
+            <field name="model">note.exam</field>
+            <field name="arch" type="xml">
+                <search string="controle">
+                    <field name="classroom_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter name="class" string="Class" help="By Class" context="{'group_by':'classroom_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_exam_tree" model="ir.ui.view">
+            <field name="name">daily.tree</field>
+            <field name="model">note.exam</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Notes Examan">
+                    <field name="date" />
+                    <field name="module_id" />
+                    <field name="teacher_id" />
+                    <field name="classroom_id" />
+                   
+                </tree>
+            </field>
+        </record>
+        
+
+       
+
+       <record id="action_exam_note" model="ir.actions.act_window">
+            <field name="name">Notes Examan</field>
+             <field name="type">ir.actions.act_window</field>
+            <field name="res_model">note.exam</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+
+<!-- ============================================================================== -->
+
+       <record id="view_deliberation_form" model="ir.ui.view">
+            <field name="name">note.deliberation.form</field>
+            <field name="model">delibration.finale</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form >
+                    <sheet>
+                    <div class="oe_right oe_button_box">
+                            <field name="result" string="Resutat" icon="fa-edit" class="oe_right oe_stat_button" style="padding-right:10px" 
+                            colors="red:val_id=='elimine';orange:val_id=='valide';brown:val_id=='nonvalide'" />
+                    </div>
+                        <separator string="Fiche de Déliberation" />
+                        <group colspan="4" col="4">
+                            <field name="date" />
+                            <field name="session" required="1" />
+                            <field name="year_id" options="{&quot;no_create&quot;: True}" />
+                            <field name="program_id" options="{&quot;no_create&quot;: True}"  required="1"  />
+                            <field name="level_id" widget="selection"  domain="[('program_id','=',program_id)]" required="1" />
+                            <field name="semestre_id" widget="selection"  domain="[('level_id','=',level_id)]" required="1"  />
+                            <field name="classroom_id" widget="selection" domain="[('level_id','=',level_id)]" required="1"  />
+                            <field name="etudiant" domain="[('classroom_id','=',classroom_id)]"  widget="selection"  required="1"  /> 
+                                            
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Note">
+                                <field name="student_ids" nolabel="1" colspan="4">
+                                    <tree string="Information des etudiants" editable="bottom"  create="false" delete="false" colors="red:val_id=='elimine';orange:val_id=='valide';brown:val_id=='nonvalide'" >
+                                        <field name="nom" />
+                               <!--         <field name="notecontrole" readonly="1" options="{&quot;no_create&quot;: True}" />
+                                        <field name="notexam" /> -->
+                                        <field name="notefinal" />
+                                         <field name="credit" />
+                                         <field name="notexam" />
+                                        <field name="val_id" />
+                                    </tree>
+                                </field>
+                             </page>
+                        </notebook>
+                           <group colspan="4" col="4">
+                             <field name="moyenne"/>
+                             <field name="total"/>
+                           </group>
+                       
+                    </sheet>
+                </form>
+            </field>
+        </record> 
+        
+
+       
+        <record id="view_deliberation_search" model="ir.ui.view">
+            <field name="name">deliberation</field>
+            <field name="model">delibration.finale</field>
+            <field name="arch" type="xml">
+                <search string="controle">
+                    <field name="classroom_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter name="class" string="Class" help="By Class" context="{'group_by':'classroom_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_deliberation_tree" model="ir.ui.view">
+            <field name="name">deliberation</field>
+            <field name="model">delibration.finale</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Notes Examan">
+                    <field name="date" />
+                    <field name="etudiant" />
+                    <field name="teacher_id" />
+                    <field name="classroom_id" />
+                   
+                </tree>
+            </field>
+        </record>
+        
+
+       
+
+       <record id="action_deliberation_note" model="ir.actions.act_window">
+            <field name="name">Notes Examan</field>
+             <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delibration.finale</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+   </data>
+</openerp>

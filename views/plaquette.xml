@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sm_plaquette_view_tree" model="ir.ui.view">
+            <field name="name">sm_plaquette_view_tree</field>
+            <field name="model">sm.plaquette</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Name">
+                 <field name="year_id"/>
+                  <field name="program_id"/>
+                  <field name="level_id"/>
+                    <!-- <field name="semestre_id"/> -->
+                    <!-- <field name="unit_id"/> -->
+                    <!-- <field name="module_id"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_plaquette_view_form" model="ir.ui.view">
+            <field name="name">sm_plaquette_view_form</field>
+            <field name="model">sm.plaquette</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Name">
+                    <header>
+                        <button name="set_terminate" string="Terminer" type="object" 
+                          icon="gtk-execute" class="oe_highlight" confirm="Êtes-vous sûr de vouloir sauvegarder defintivement la plaquette ?" />
+                        <button name="set_dublicatat" string="Dupliquer" type="object"
+                            icon="gtk-execute" states="finish"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <!-- <sheet> -->
+                        <group col="4" colspan="4">
+                           <field name="date_plaquette" readonly="1"/>
+                            <group col="4"  colspan="4">
+                            <field name="year_id"/>
+                            <field name="program_id"  domain="[('year_id','=',year_id)]"/>
+                            <field name="level_id" domain="[('program_id','=',program_id)]" />
+                            </group>  
+                            <group col="4" colspan='4'>
+                            <field name="credit"/>
+                            <field name="cm"/>
+                            <field name="tdtp"/>
+                            <field name="total"/>
+                            <field name="tpe"/> 
+                              </group> 
+                        </group>
+                        <notebook colspan="4">
+                        <page string="Enseignements" >
+                            <field name="semestre_id" 
+                                  > 
+                                  <!-- domain="[('level_id','=',level_id)]" -->
+                                <tree  >
+                                    <field name="name"/>
+                                    <field name="credit"/>
+                                    <field name="cm"/>
+                                    <field name="tdtp"/>
+                                    <field name="total"/>
+                                    <field name="tpe"/> 
+                                    <!-- <field name="unit_ids"/> -->
+                                </tree>
+                                 </field>
+                                <group col="4" colspan='4'>
+                                    <field name="unit_id"  >
+                                    <!-- domain="[('level_id','=',level_id)]" -->
+                                       <tree >
+                                            <field name="code"/>
+                                            <field name="name"/>
+                                            <field name="credit"/>
+                                            <field name="cm"/>
+                                            <field name="tdtp"/>
+                                            <field name="total"/>
+                                            <field name="tpe"/> 
+                                             <!-- <field name="module_ids" /> -->
+                                        </tree>
+                                        </field>
+                                       </group>
+                                <group col="4" colspan='4'>
+                                    <field name="module_id"    >
+                                    <tree   >
+                                         <field name="nom"/>
+                                           <field name="name"/>
+                                            <!-- <field name="code"/> -->
+                                            <field name="cm"/>
+                                            <field name="tdtp"/>
+                                            <field name="total"/>
+                                            <field name="tpe"/> 
+                                    </tree>
+                                     </field>
+                                </group> 
+                                
+                         </page >                    
+                          </notebook >
+                          
+                        <!-- <page string="Enseignements" >
+                            <field name="Pog_id"  >
+                            <tree  editable="bottom" >
+                                <field name="semestre_id"  />
+                                    
+                                       <field name="unit_id"/>
+                                        <field name="module_id"/> -->
+                                        <!-- <field name="cm"/>
+                                        <field name="tdtp"/>
+                                        <field name="total"/>
+                                        <field name="tpe"/>  -->
+                                        <!-- <field name="unit_ids"/> -->
+                                    <!-- </tree> -->
+                                 <!-- </field> -->
+                                <!-- <group col="4" colspan='4'>
+                                    <field name="unit_id">
+                                        <tree  editable="bottom" >
+                                            <field name="code"/>
+                                                <field name="name"/>
+                                                <field name="credit"/>
+                                                <field name="cm"/>
+                                                <field name="tdtp"/>
+                                                <field name="total"/>
+                                                <field name="tpe"/> 
+                                            </tree>
+                                        </field>
+                                  </group>
+                                <group col="4" colspan='4'>
+                                    <field name="module_id">
+                                    <tree  editable="bottom" >
+                                            <field name="code"/>
+                                            <field name="name"/>
+                                            <field name="cm"/>
+                                            <field name="tdtp"/>
+                                            <field name="total"/>
+                                            <field name="tpe"/> 
+                                    </tree>
+                                    </field>
+
+                                </group>  -->
+                            <!-- </field>  
+                         </page >                    
+                    </notebook > -->
+                    <!-- </sheet> -->
+                    <div group="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="kanban_plaquette_view" model="ir.ui.view">
+        <field name="name">plaquette KANBAN</field>
+        <field name="model">sm.plaquette</field>
+        <field name="arch" type="xml">
+            <kanban >
+                <field name="level_id" />
+                <field name="program_id" />
+                <field name="year_id" />
+                 <field name="semestre_id" />
+                 <field name="color" />
+                  
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}} oe_kanban_global_click_edit oe_semantic_html_override">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <ul class="oe_dropdown_menu">
+                                    <li>
+                                        <a type="edit">Edit...</a>
+                                    </li>
+                                    <li>
+                                        <a type="delete">Delete</a>
+                                    </li>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                <table class="oe_kanban_table">
+                                    <tr>
+                                        <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                            <h4>
+                                                <a type="open">
+                                                    <field name="program_id" />
+                                                    <field name="level_id" />
+                                                </a>
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                            <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                <table class="oe_kanban_table">
+                                    <tr width="300">
+                                        <td valign="top" align="left" style="padding-left:10px;">
+                                            <table>
+                                                <!-- <tr>
+                                                    <td>Programme :</td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="program_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr> -->
+                                                <!-- <tr>
+                                                    <td>Niveau : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="level_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr> -->
+                                                <tr>
+                                                    <td>Année de création : </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="year_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Semestre: </td>
+                                                    <td style="padding-left:10px;">
+                                                        <b>
+                                                            <field name="semestre_id" />
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                <div class="oe_kanban_left" style="margin-left:10px;">
+                                    <br />
+                                    <a role="button" string="Edit" class="btn btn-sm btn-default fa fa-pencil" type="edit" aria-label="edit" title="edit"/>
+                                    <a role="button" string="Change Color" icon="color-picker" type="color" name="color" />
+                                </div>
+                                <br class="oe_kanban_clear" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+        <record id="sm_plaquette_view_search" model="ir.ui.view">
+            <field name="name">sm_plaquette_view_search</field>
+            <field name="model">sm.plaquette</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Name">
+                    <field name="year_id"/>
+                    <field name="program_id"/>
+                   
+                </search>
+            </field>
+        </record>
+
+        <record id="sm_plaquette_action" model="ir.actions.act_window">
+            <field name="name">Plaquette</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.plaquette</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="sm_plaquette_view_search"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="cesag_contract_teacher_generate_form_view" model="ir.ui.view">
+            <field name="name">cesag_contract_teacher_generate.form</field>
+            <field name="model">cesag.contract.teacher</field>
+            <field name="arch" type="xml">
+                <form string="Génération des contrats">
+                        <header>
+                            <button name="do_product_revision" string="Imprimer les contrats" type="object" class="oe_highlight"/>
+                            <button name="action_button_done" string="Envoyez les contrats par mails" type="object" confirm = "Etes vous sure de vouloir envoyer ?" class="oe_highlight"/>
+                        </header>
+                        <label for="date"/>
+                            <h1>
+                                <field name="date"/>
+                            </h1>
+                        <label for="name"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        <label for="year_id"/>
+                            <h1>
+                                <field name="year_id"/>
+                            </h1>
+                        <label for="consolidation_id"/>
+                            <h1>
+                                <field name="consolidation_id"/>
+                            </h1>
+<!--                        <button name="%(action_report_faculty_contract)d" string="Imprimer" type="action" class="oe_highlight"/>-->
+                    <notebook>
+                        <page string="Enseignant">
+                            <field name="contract_line_ids">
+                                <tree editable="True">
+                                    <field name="teacher_id"/>
+                                    <button name="%(action_report_faculty_contract)d" string="Imprimer" type="action" class="oe_highlight"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="cesag_contract_teacher_generate_tree_view" model="ir.ui.view">
+            <field name="name">cesag.cesag_contract_teacher_generate.tree</field>
+            <field name="model">cesag.contract.teacher</field>
+            <field name="arch" type="xml">
+                <tree string="Génération des contrats">
+                    <field name="name"/>
+                    <field name="year_id"/>
+                    <field name="consolidation_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cesag_generation_contract_act_window" model="ir.actions.act_window">
+            <field name="name">Génération des contrats</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cesag.contract.teacher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Générer des contrats.
+                </p>
+            </field>
+        </record>
+
+<!--        <menuitem name="Génération des contrats" id="cesag_contract_teacher_generate_menu" parent="your_root_menu" action="cesag_contract_teacher_generate_act_window"/>-->
+
+    </data>
+</openerp>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_sm_student_w_6">
+
+    <t t-foreach="docs" t-as="o">
+
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <div class="header" style="margin: 0px; padding: 0px;">
+            
+            <table class="table table-condensed" style="padding: 10px;">
+                <tr style="padding: 10px; border: none">
+                    <td style="text-align: center; border: none; font-weight: 900; font-size: 33px">
+                        <img t-if="company" t-att-src="'data:image/png;base64,%s' % company.logo"
+                            style="max-height: 2cm; max-width: 4cm;"/>
+                    </td>
+                    <td style="text-align: center; border: none; font-weight: 900; font-size: 33px">
+                        FEUILLE D'EMARGEMENT D'EXAMEN
+                    </td>
+                    <td style="text-align: right; vertical-align: top; border: none; font-weight: 900; font-size: 33px">
+                        <span style="font-size: 10.5px; text-align: right; font-weight:bold;"> Page : <span class="page"/> / <span class="topage"/> </span>
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+
+        <div class="page" style="margin: 0px; padding: 0px;">
+
+            <t t-set="liste" t-value="get_lines(o)"/>
+
+            <table class="table table-condensed" style="padding: 10px; margin-top: 0.5cm; margin-bottom: 1cm">
+                <tr style="padding: 10px; border: none">
+                    <td style="text-align: left; font-weight: bold; border: none; width: 2.5cm">
+                        Institut
+                    </td>
+                    <td style="text-align: left;; border: none">
+                        : <span t-field="o.site_id"/>
+                    </td>
+                    <td style="text-align: left; font-weight: bold; border: none; width: 2.5cm">
+                        Année
+                    </td>
+                    <td style="text-align: left; border: none">
+                        : <span t-field="o.year_id"/>
+                    </td>
+                    <td style="text-align: left; font-weight: bold; border: none; width: 2.5cm">
+                        Classe
+                    </td>
+                    <td style="text-align: left;; border: none">
+                        : <span t-field="o.classroom_id"/>
+                    </td>
+                </tr>
+                <tr style="padding: 10px; border: none">
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Programme
+                    </td>
+                    <td style="text-align: left;; border: none" colspan="5">
+                        : <span t-field="o.program_id"/>
+                    </td>
+                </tr>
+                <tr style="padding: 10px; border: none">
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Niveau
+                    </td>
+                    <td style="text-align: left; border: none">
+                        : <span t-field="o.level_id"/>
+                    </td>
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Matière
+                    </td>
+                    <td style="text-align: left; border: none" colspan="3">
+                        : 
+                    </td>
+                </tr>
+                <tr t-if="o.option_id" style="padding: 10px; border: none">
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Option
+                    </td>
+                    <td style="text-align: left;; border: none" colspan="3">
+                        : <span t-field="o.option_id"/>
+                    </td>
+                </tr>
+                <tr style="padding: 10px; border: none">
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Date
+                    </td>
+                    <td style="text-align: left; border: none">
+                        : 
+                    </td>
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Heure Début
+                    </td>
+                    <td style="text-align: left; border: none">
+                        : 
+                    </td>
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Heure Fin
+                    </td>
+                    <td style="text-align: left; border: none">
+                        : 
+                    </td>
+                </tr>
+                <tr style="padding: 10px; border: none">
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Professeur
+                    </td>
+                    <td style="text-align: left;; border: none" colspan="3">
+                        :
+                    </td>
+                    <td style="text-align: left; font-weight: bold; border: none">
+                        Signature
+                    </td>
+                    <td style="text-align: left;; border: none" colspan="3">
+                        :
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr style="background-color: #d3d7cf;">
+                        <th style="text-align: center"> Code </th>
+                        <th style="text-align: left"> Nom et Prénom </th>
+                        <th style="text-align: left"> Signature Début</th>
+                        <th style="text-align: left"> Signature Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="liste" t-as="t" >
+                        <td style="text-align: center"> <span t-field="t.ref"/> </td>
+                        <td style="text-align: left"> <span t-field="t.lastname"/> <span t-field="t.firstname"/></td>
+                        <td style="text-align: left">   </td>
+                        <td style="text-align: left">   </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="footer">
+            
+        </div>
+
+<!--        <div class="footer" style="text-align: center; border-top: 1px solid #848484; padding-top: 0.15cm; vertical-align: middle">-->
+<!--            <span style="font-size: 10.5px; text-align: right; font-weight:bold;"> Page : <span class="page"/> / <span class="topage"/> </span>-->
+<!--        </div>-->
+
+    </t>
+
+</template>
+
+
+</data>
+</openerp>
