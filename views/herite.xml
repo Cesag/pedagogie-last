@@ -977,9 +977,17 @@
                 <xpath expr="//div[1]" position="inside">
                     <button name="action_timetable_count" type="object" class="oe_stat_button" string="Emploi du temps" icon="fa-list"/>                    
                 </xpath>
-                <!-- <xpath expr="//group/field[@name='name']"  position="replace">
-                      <field name="name"/>
-                </xpath> -->
+                 <xpath expr="//group[1]"  position="replace">
+                      <group col="4">
+                            <field name="name"/>
+                            <field name="class_type"/>
+                            <field name="year_id" options="{&quot;no_create&quot;: True}"/>
+                            <field name="class_capacity"/>
+                            <separator colspan="4"/>
+                            <field name="program_id" options="{&quot;no_create&quot;: True}"/>
+                            <field name="level_id" options="{&quot;no_create&quot;: True}" domain="[('program_id','=',program_id)]"/>
+                        </group>
+                </xpath> 
                 <xpath expr="//group[1]"  position="after">
                        <notebook>
                         <page string="Modules" readonly='1' >
@@ -999,8 +1007,7 @@
                                 </tree>
                             </field>
                         </page>
-                     </notebook >
-                          
+                     </notebook >         
                  </xpath>
             </field>
         </record>
